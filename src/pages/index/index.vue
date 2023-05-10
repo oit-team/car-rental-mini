@@ -12,5 +12,6 @@ const title = ref('Hello')
         {{ title }}
       </text>
     </view>
+    <VanButton>测试</VanButton>
   </view>
 </template>
