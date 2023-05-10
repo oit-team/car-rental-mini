@@ -3,6 +3,7 @@
   "compilerOptions": {
     "sourceMap": true,
     "baseUrl": ".",
+    "allowJs": true,
     "paths": {
       "@/*": ["./src/*"]
     },
@@ -12,5 +13,5 @@
       "@dcloudio/types"
     ]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "exclude": ["dist", "node_modules"]
 }
