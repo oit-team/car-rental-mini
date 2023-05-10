@@ -10,7 +10,8 @@
     "lib": ["esnext", "dom"],
     "types": [
       "vite/client",
-      "@dcloudio/types"
+      "@dcloudio/types",
+      "miniprogram-api-typings"
     ]
   },
   "exclude": ["dist", "node_modules"]

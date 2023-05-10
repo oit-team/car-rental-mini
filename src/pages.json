@@ -5,8 +5,34 @@
       "style": {
         "navigationBarTitleText": "uni-app"
       }
+    },
+    {
+      "path": "pages/about/index",
+      "style": {
+        "navigationBarTitleText": "about"
+      }
     }
   ],
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "/static/logo.png",
+        "selectedIconPath": "/static/logo.png",
+        "text": "Home"
+      },
+      {
+        "pagePath": "pages/about/index",
+        "iconPath": "/static/logo.png",
+        "selectedIconPath": "/static/logo.png",
+        "text": "About"
+      }
+    ]
+  },
   "globalStyle": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
@@ -14,7 +40,9 @@
     "backgroundColor": "#F8F8F8",
     "usingComponents": {
       // 注册小程序组件
-      "van-button": "/wxcomponents/vant/button/index"
+      "van-button": "/wxcomponents/vant/button/index",
+      "van-toast": "/wxcomponents/vant/toast/index",
+      "van-dialog": "/wxcomponents/vant/dialog/index"
     }
   }
 }
