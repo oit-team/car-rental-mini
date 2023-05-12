@@ -1,9 +1,33 @@
 import path from 'path'
-import { defineConfig } from 'vite'
+import { type PluginOption, defineConfig } from 'vite'
 import Uni from '@dcloudio/vite-plugin-uni'
 import Unocss from 'unocss/vite'
 import Eslint from 'vite-plugin-eslint'
 import AutoImport from 'unplugin-auto-import/vite'
+
+/**
+ * 修复微信小程序组件编译问题
+ * @link https://github.com/dcloudio/uni-app/issues/3290#issuecomment-1053970982
+ */
+function FixWxComponents(): PluginOption {
+  return {
+    name: 'fix-wxcomponents',
+    enforce: 'post',
+    configResolved(config) {
+      if (process.env.UNI_PLATFORM === 'mp-weixin') {
+        const { output } = config.build.rollupOptions as any
+        const { manualChunks } = output as any
+        output.manualChunks = (id: string, api: any) => {
+          if (id.includes('wxcomponents')) {
+            // 将 wxcomponents 中的 js 编译为 common/wxcomponents.js
+            return 'common/wxcomponents'
+          }
+          return manualChunks(id, api)
+        }
+      }
+    },
+  }
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -54,5 +78,6 @@ export default defineConfig({
       dts: true,
       vueTemplate: true,
     }),
+    FixWxComponents(),
   ],
 })

@@ -11,6 +11,12 @@
       "style": {
         "navigationBarTitleText": "about"
       }
+    },
+    {
+      "path": "pages/account/login",
+      "style": {
+        "navigationBarTitleText": "登录"
+      }
     }
   ],
   "tabBar": {
@@ -39,10 +45,28 @@
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8",
     "usingComponents": {
-      // 注册小程序组件
       "van-button": "/wxcomponents/vant/button/index",
       "van-toast": "/wxcomponents/vant/toast/index",
-      "van-dialog": "/wxcomponents/vant/dialog/index"
+      "van-dialog": "/wxcomponents/vant/dialog/index",
+      "van-icon": "/wxcomponents/vant/icon/index",
+      "van-cell": "/wxcomponents/vant/cell/index",
+      "van-image": "/wxcomponents/vant/image/index",
+      "van-field": "/wxcomponents/vant/field/index",
+      "van-search": "/wxcomponents/vant/search/index",
+      "van-tag": "/wxcomponents/vant/tag/index",
+      "van-tab": "/wxcomponents/vant/tab/index",
+      "van-tabs": "/wxcomponents/vant/tabs/index",
+      "van-divider": "/wxcomponents/vant/divider/index",
+      "van-empty": "/wxcomponents/vant/empty/index",
+      "van-collapse": "/wxcomponents/vant/collapse/index",
+      "van-picker": "/wxcomponents/vant/picker/index",
+      "van-calendar": "/wxcomponents/vant/calendar/index",
+      "van-radio": "/wxcomponents/vant/radio/index",
+      "van-popup": "/wxcomponents/vant/popup/index",
+      "van-radio-group": "/wxcomponents/vant/radio-group/index",
+      "van-datetime-picker": "/wxcomponents/vant/datetime-picker/index",
+      "van-collapse-item": "/wxcomponents/vant/collapse-item/index",
+      "van-cell-group": "/wxcomponents/vant/cell-group/index"
     }
   }
 }

@@ -1,6 +1,7 @@
 import Axios from 'luch-request'
 import ApiError, { type ApiErrorOptions } from './ApiError'
-import Toast from '@/wxcomponents/vant/toast/toast'
+import { Toast } from '@/components'
+import { useUserStore } from '@/store/user'
 
 // 创建接口错误封装对象
 function createApiError(option: ApiErrorOptions) {
@@ -8,7 +9,7 @@ function createApiError(option: ApiErrorOptions) {
 }
 
 const axiosInstance = new Axios({
-  baseURL: process.env.VUE_APP_API_URL,
+  baseURL: import.meta.env.VITE_APP_API_URL,
   timeout: 60000,
 })
 
@@ -23,7 +24,7 @@ axiosInstance.interceptors.request.use((config) => {
 
 // 添加响应拦截器
 axiosInstance.interceptors.response.use((response) => {
-  if (response.data.head?.status !== 0) {
+  if (response.header['Content-Type'].includes('application/json') && response.data.head?.status !== 0) {
     return createApiError({
       url: response?.config.url,
       response,
@@ -41,17 +42,17 @@ axiosInstance.interceptors.response.use((response) => {
   })
 })
 
-// 捕获promise错误
-wx.onUnhandledRejection(({ reason }: { reason: any }) => {
+/**
+ * 处理接口错误
+ */
+export function errorHandler(error: unknown) {
   // 处理接口错误
-  if (reason instanceof ApiError) {
-    console.error(reason)
-
-    if (reason.resolved)
+  if (error instanceof ApiError) {
+    if (error.resolved)
       return
 
-    const httpStatusCode = reason.error?.statusCode
-    let message = reason.message
+    const httpStatusCode = error.error?.statusCode
+    let message = error.message
 
     if (httpStatusCode > 500)
       message = '服务器出错\n请稍后重试'
@@ -61,7 +62,7 @@ wx.onUnhandledRejection(({ reason }: { reason: any }) => {
       message,
     })
   }
-})
+}
 
 /**
  * post请求封装
@@ -70,18 +71,18 @@ wx.onUnhandledRejection(({ reason }: { reason: any }) => {
  * @param {object} config 请求配置
  */
 export function post(url: string, data: any = {}, config: any = {}) {
-  const userInfo = {} as any
+  const user = useUserStore()
 
   const wrapData = {
     head: {
-      aid: userInfo.id,
+      aid: user.profile?.userId,
       cmd: config.cmd,
       ver: '1.0',
       ln: 'cn',
       mod: 'app',
       de: '2019-10-16',
       sync: 1,
-      uuid: userInfo.brandId,
+      uuid: user.profile?.orgId,
       chcode: 'ef19843298ae8f2134f',
     },
     con: data,

@@ -34,8 +34,8 @@ export default {
 
 <template>
   <div class="page" :class="[{ 'flex flex-col': flex }, classes]">
-    <VanToast id="van-toast" />
-    <VanDialog id="van-dialog" />
+    <van-toast id="van-toast" />
+    <van-dialog id="van-dialog" />
 
     <slot />
   </div>

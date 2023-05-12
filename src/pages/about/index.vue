@@ -1,5 +1,5 @@
 <template>
-  <Page>
+  <page>
     about
-  </Page>
+  </page>
 </template>
