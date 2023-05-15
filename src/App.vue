@@ -10,9 +10,6 @@ onShow(() => {
 onHide(() => {
   console.info('App Hide')
 })
-onUnhandledRejection(() => {
-  console.log('object')
-})
 </script>
 
 <style>

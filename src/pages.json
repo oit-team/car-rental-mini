@@ -7,9 +7,9 @@
       }
     },
     {
-      "path": "pages/about/index",
+      "path": "pages/account/index",
       "style": {
-        "navigationBarTitleText": "about"
+        "navigationBarTitleText": "account"
       }
     },
     {
@@ -32,10 +32,10 @@
         "text": "Home"
       },
       {
-        "pagePath": "pages/about/index",
+        "pagePath": "pages/account/index",
         "iconPath": "/static/logo.png",
         "selectedIconPath": "/static/logo.png",
-        "text": "About"
+        "text": "我的"
       }
     ]
   },

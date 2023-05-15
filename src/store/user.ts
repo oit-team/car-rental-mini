@@ -37,8 +37,11 @@ export const useUserStore = defineStore('user', () => {
     profile.value = undefined
   }
 
+  const logged = computed(() => !!profile.value)
+
   return {
     profile: readonly(profile),
+    logged: readonly(logged),
     setUserProfile,
     updateUserProfile,
     getUserProfile,
