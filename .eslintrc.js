@@ -29,5 +29,6 @@ module.exports = {
       'kebab-case',
       { registeredComponentsOnly: false },
     ],
+    'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
   },
 }
