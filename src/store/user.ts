@@ -21,9 +21,9 @@ export const useUserStore = defineStore('user', () => {
 
   // 更新用户信息
   const updateUserProfile = async () => {
-    const { data } = await post('/system/login/getUserToken')
-    profile.value = data
-    setToken(data.accessToken)
+    const { body } = await post('/system/login/getUserToken')
+    profile.value = body
+    setToken(body.accessToken)
   }
 
   // 获取用户信息

@@ -10,11 +10,13 @@ export default defineComponent({
   name: 'index',
   data() {
     return {
-      username: 'admin',
-      password: '111111',
+      username: '',
+      password: '',
       checkCode: '',
       imgCode: '',
     }
+  },
+  computed: {
   },
   onLoad() {
   },
@@ -22,7 +24,7 @@ export default defineComponent({
     this.getCode()
   },
   methods: {
-    ...mapActions(useUserStore, ['setUserProfile']),
+    ...mapActions(useUserStore, { setUser: 'setUserProfile' }),
     async getCode() {
       const res = await getCode({}, {
         responseType: 'arraybuffer',
@@ -43,13 +45,13 @@ export default defineComponent({
         userLogin({
           userName: this.username,
           passWord: crypto.encrypt(this.password),
-          checkCode: this.checkCode?.trim(),
+          checkCode: this.checkCode,
         }),
         '正在登录...',
       )
       setToken(res.body.accessToken)
-      this.setUserProfile(res.body)
-      uni.switchTab({
+      this.setUser(res.body)
+      await uni.switchTab({
         url: '/pages/index/index',
       })
     },
@@ -62,11 +64,11 @@ export default defineComponent({
     <view class="width-4-5 h-full mt-24">
       <view class="w-full flex flex-col justify-center items-center mb-10">
         <image
-          class="w-70rpx h-100rpx"
-          src="/static/logo.jpg"
+          class="w-100px h-100px"
+          src="/static/logo.png"
         />
         <view class="leading-normal mt-2 text-sm text-center">
-          浪汛租车系统
+          浪汛租赁系统
         </view>
       </view>
       <van-field
@@ -86,7 +88,7 @@ export default defineComponent({
         placeholder="密码"
         @change="password = $event.detail"
       />
-      <view class="w-full flex justify-between gap-1 pl-3 box-border items-center">
+      <view class="w-full bg-white flex justify-between gap-1 pl-3 box-border items-center">
         <van-image
           class="my-2"
           width="100"
@@ -103,8 +105,8 @@ export default defineComponent({
           @change="checkCode = $event.detail"
         />
       </view>
-      <view class="m-5" @click="login()">
-        <van-button round block type="info" native-type="submit">
+      <view class="my-5" @click="login()">
+        <van-button block type="info" native-type="submit">
           登录
         </van-button>
       </view>

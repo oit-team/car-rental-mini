@@ -42,12 +42,16 @@ axiosInstance.interceptors.response.use((response) => {
   })
 })
 
+function isApiError(err: unknown): err is ApiError {
+  return err instanceof ApiError
+}
+
 /**
  * 处理接口错误
  */
 export function errorHandler(error: unknown) {
   // 处理接口错误
-  if (error instanceof ApiError) {
+  if (isApiError(error)) {
     if (error.resolved)
       return
 

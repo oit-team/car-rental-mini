@@ -1,15 +1,58 @@
 {
-  "pages": [ // pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+  "pages": [
     {
       "path": "pages/index/index",
       "style": {
-        "navigationBarTitleText": "uni-app"
+        "navigationBarTitleText": ""
+      }
+    },
+    {
+      "path": "pages/index/detail",
+      "style": {
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 10
+      }
+    },
+    {
+      "path": "pages/index/add",
+      "style": {
       }
     },
     {
       "path": "pages/account/index",
       "style": {
-        "navigationBarTitleText": "account"
+        "navigationBarTitleText": "我的"
+      }
+    },
+    {
+      "path": "pages/account/editPassword",
+      "style": {
+        "navigationBarTitleText": "修改密码"
+      }
+    },
+    {
+      "path": "pages/car/car",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 10
+      }
+    },
+    {
+      "path": "pages/car/detail",
+      "style": {
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 10
+      }
+    },
+    {
+      "path": "pages/car/leaseOrderDetail",
+      "style": {
+      }
+    },
+    {
+      "path": "pages/car/leaseOrderT3Detail",
+      "style": {
       }
     },
     {
@@ -21,27 +64,29 @@
   ],
   "tabBar": {
     "color": "#7A7E83",
-    "selectedColor": "#3cc51f",
+    "selectedColor": "#1296db",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "iconPath": "/static/logo.png",
-        "selectedIconPath": "/static/logo.png",
-        "text": "Home"
-      },
-      {
-        "pagePath": "pages/account/index",
-        "iconPath": "/static/logo.png",
-        "selectedIconPath": "/static/logo.png",
-        "text": "我的"
-      }
-    ]
+    "list": [{
+      "pagePath": "pages/index/index",
+      "iconPath": "static/tabBar/driver_s.png",
+      "selectedIconPath": "static/tabBar/driver.png",
+      "text": "司机"
+    }, {
+      "pagePath": "pages/car/car",
+      "iconPath": "static/tabBar/car_s.png",
+      "selectedIconPath": "static/tabBar/car.png",
+      "text": "车辆"
+    }, {
+      "pagePath": "pages/account/index",
+      "iconPath": "static/tabBar/my_s.png",
+      "selectedIconPath": "static/tabBar/my.png",
+      "text": "我的"
+    }]
   },
   "globalStyle": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
+    "navigationBarTitleText": "浪汛租赁",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8",
     "usingComponents": {
