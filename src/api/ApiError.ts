@@ -8,6 +8,7 @@ export type ApiErrorOptions = Partial<{
 }>
 
 export default class ApiError {
+  __isApiError = true
   // 请求地址
   url?: string
   // 错误消息
