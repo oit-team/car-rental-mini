@@ -48,3 +48,15 @@ export function toast(config: WechatMiniprogram.ShowToastOption | string) {
     ...config,
   })
 }
+
+export function previewImg(url: Array<any>) {
+  uni.previewImage({
+    urls: url,
+    longPressActions: {
+      itemList: ['发送给朋友', '保存图片', '收藏'],
+      fail(err) {
+        toast({ icon: 'error', title: err.errMsg })
+      },
+    },
+  }).then(() => {})
+}
