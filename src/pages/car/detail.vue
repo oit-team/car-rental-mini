@@ -6,6 +6,7 @@ import CardItem from '../index/component/CardItem.vue'
 import DataFlow from './component/DataFlow.vue'
 import DocumentCar from './component/DocumentCar.vue'
 import Violation from './component/Violation.vue'
+import { previewImg } from '@/utils/helper'
 import ScrollBtm from '@/components/scrollBtm/scrollBtm.vue'
 import LeaseOrder from '@/pages/car/component/LeaseOrder.vue'
 import { getVehicleDetailed } from '@/api/car'
@@ -94,6 +95,7 @@ export default {
     await this.getT3LeaseOrderList()
   },
   methods: {
+    previewImg,
     // 车辆详情
     async getVehicleDetailed() {
       const res = await getVehicleDetailed({ vehicleId: this.id })
@@ -227,11 +229,12 @@ export default {
     <view v-if="info.imgList" class="mb-2 bg-white rounded-md">
       <swiper :indicator-dots="true">
         <swiper-item v-for="item in imageListKeys" :key="item">
-          <div class="flex justify-center items-center h-full">
+          <div class="flex justify-center items-center h-full py-2 box-border">
             <image
-              class="w-200px h-full"
-              mode="aspectFit"
+              class="w-300px h-full"
+              mode="aspectFill"
               :src="info.imgList[item]"
+              @click="previewImg([info.imgList[item]])"
             />
           </div>
         </swiper-item>

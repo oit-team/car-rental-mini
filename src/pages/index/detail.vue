@@ -5,6 +5,7 @@ import Violation from '../car/component/Violation.vue'
 import CardItem from './component/CardItem.vue'
 import Card from './component/Card.vue'
 import Document from './component/Document.vue'
+import { previewImg } from '@/utils/helper'
 import LeaseOrder from '@/pages/car/component/LeaseOrder.vue'
 import ScrollBtm from '@/components/scrollBtm/scrollBtm.vue'
 import { getT3OperationalDataList, getVehicleDetailed, getViolationInfo } from '@/api/car'
@@ -94,6 +95,7 @@ export default {
     await this.getT3LeaseOrderList()
   },
   methods: {
+    previewImg,
     // 司机详情
     async getInfo() {
       const res = await getDriverMap({
@@ -293,6 +295,7 @@ export default {
                 height="150"
                 fit="contain"
                 :src="driverInfo.driveLicense?.driveLicenseAssistant[0]"
+                @click="previewImg(driverInfo.driveLicense?.driveLicenseAssistant)"
               />
             </view>
             <view v-else class="w-full bg-white">

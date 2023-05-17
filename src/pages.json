@@ -87,8 +87,8 @@
       "text": "车辆"
     }, {
       "pagePath": "pages/lease/lease",
-      "iconPath": "static/lease/lease_s.png",
-      "selectedIconPath": "static/lease/lease.png",
+      "iconPath": "static/tabBar/lease_s.png",
+      "selectedIconPath": "static/tabBar/lease.png",
       "text": "租赁"
     }, {
       "pagePath": "pages/account/index",

@@ -1,4 +1,6 @@
 <script setup>
+import { previewImg } from '@/utils/helper'
+
 defineProps({
   info: Object,
 })
@@ -13,10 +15,12 @@ defineProps({
       <image
         class="w-200px h-140px mb-2"
         :src="info.driveLicense.driveLicenceOriginal"
+        @click="previewImg([info.driveLicense?.driveLicenceOriginal])"
       />
       <image
         class="w-200px h-140px"
         :src="info.driveLicense.driveLicenceEctype"
+        @click="previewImg([info.driveLicense?.driveLicenceEctype])"
       />
     </view>
     <view v-else class="w-full h-100px text-[#777] text-sm flex justify-center items-center">
@@ -29,17 +33,8 @@ defineProps({
       <image
         class="w-200px h-140px"
         :src="info.driverIdentity.transporteCardImg"
+        @click="previewImg([info.driverIdentity?.transporteCardImg])"
       />
-      <!--      <image -->
-      <!--        class="w-140px h-140px" -->
-      <!--        mode="aspectFit" -->
-      <!--        :src="info.driverIdentity.identityReverse" -->
-      <!--      /> -->
-      <!--      <image -->
-      <!--        class="w-140px h-140px" -->
-      <!--        mode="aspectFit" -->
-      <!--        :src="info.driverIdentity.identityStraight" -->
-      <!--      /> -->
     </view>
     <view v-else class="w-full h-100px text-[#777] text-sm flex justify-center items-center">
       (空)
@@ -52,6 +47,7 @@ defineProps({
         class="w-200px h-140px"
         mode="aspectFit"
         :src="info.driverIdentity.identityImg"
+        @click="previewImg([info.driverIdentity?.identityImg])"
       />
     </view>
     <view v-else class="w-full h-100px text-[#777] text-sm flex justify-center items-center">
