@@ -18,7 +18,7 @@ export default {
 
 <template>
   <view
-    class="bg-white shadow-lg flex py-2 rounded box-border"
+    class="bg-white shadow-md flex py-2 rounded box-border"
     @click="$emit('toDetail')"
   >
     <view class="pl-2 flex items-center">
@@ -30,7 +30,7 @@ export default {
     </view>
     <view class="flex-1 text-xs px-2 leading-loose">
       <view class="flex justify-between">
-        <view class="text-lg">
+        <view class="text-base">
           {{ item.driverName || '无' }}
         </view>
         <slot />

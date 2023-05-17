@@ -17,8 +17,8 @@ getData()
 
 <template>
   <page classes="min-h-screen bg-neutral-100 p-2 box-border">
-    <view class="">
-      <view class="my-2">
+    <view>
+      <view class="my-2 text-sm text-[#777]">
         司机信息
       </view>
       <van-cell-group inset>
@@ -28,7 +28,7 @@ getData()
       </van-cell-group>
     </view>
     <view>
-      <view class="my-2">
+      <view class="my-2 text-sm text-[#777]">
         车辆信息
       </view>
       <van-cell-group inset>
@@ -38,7 +38,7 @@ getData()
       </van-cell-group>
     </view>
     <view>
-      <view class="my-2">
+      <view class="my-2 text-sm text-[#777]">
         租赁信息
       </view>
       <van-cell-group inset>
@@ -55,9 +55,29 @@ getData()
         <van-cell title="备注" :value="data?.orderInfo.remarks" />
       </van-cell-group>
     </view>
+    <view>
+      <view class="my-2 text-sm text-[#777]">
+        账单信息
+      </view>
+      <view class="bg-white rounded-lg">
+        <view v-for="item in data.billingInfo" :key="item.numberOfPeriods" class="flex justify-between items-center text-sm text-[#333] py-2 px-4">
+          <view class="flex-1">
+            {{ item.numberOfPeriods }}
+          </view>
+          <view class="flex-1">
+            {{ item.accountingPeriod }}
+          </view>
+          <view class="flex-1 text-end">
+            {{ item.rent }}
+          </view>
+        </view>
+      </view>
+    </view>
   </page>
 </template>
 
 <style scoped>
-
+:deep(.van-cell-group--inset) {
+    margin: 0;
+}
 </style>

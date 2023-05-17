@@ -7,13 +7,13 @@ import DataFlow from './component/DataFlow.vue'
 import DocumentCar from './component/DocumentCar.vue'
 import Violation from './component/Violation.vue'
 import ScrollBtm from '@/components/scrollBtm/scrollBtm.vue'
-// import LeaseOrder from '@/pages/car/component/LeaseOrder.vue'
+import LeaseOrder from '@/pages/car/component/LeaseOrder.vue'
 import { getVehicleDetailed } from '@/api/car'
 
 export default {
   components: {
     ScrollBtm,
-    // LeaseOrder,
+    LeaseOrder,
     Violation,
     Card,
     CardItem,
@@ -33,7 +33,7 @@ export default {
         pageNum: 1,
       },
       active: 0,
-      orderActive: 0,
+      orderActive: 1,
       driverInfo: {},
       operationalDataList: [],
       operationalFormData: {
@@ -65,8 +65,7 @@ export default {
     this.id = option.id
   },
   async onPullDownRefresh() {
-    // this.formData.pageNum = 1
-    // await this.getData()
+    await this.getVehicleDetailed()
     uni.stopPullDownRefresh()
   },
   async onReachBottom() {
@@ -91,8 +90,8 @@ export default {
     await this.getVehicleDetailed()
     await this.getViolationInfo()
     await this.getT3OperationalDataList()
-    // await this.getLeaseOrderList()
-    // await this.getT3LeaseOrderList()
+    await this.getLeaseOrderList()
+    await this.getT3LeaseOrderList()
   },
   methods: {
     // 车辆详情
@@ -142,6 +141,7 @@ export default {
       this.operationalEmpty = this.operationalDataList.length === 0
       this.operationalCanReLoad = res.body.count > this.operationalDataList.length
     },
+    // 获取流水  触底加载
     async getT3OperationalDataListReload() {
       if (!this.operationalCanReLoad)
         return
@@ -162,6 +162,7 @@ export default {
       this.leaseOrderEmpty = this.leaseOrderList.length === 0
       this.leaseOrderCanReLoad = res.body.totalCount > this.leaseOrderList.length
     },
+    // 租赁订单-自营 加载
     async getLeaseOrderListReload() {
       if (!this.leaseOrderCanReLoad)
         return
@@ -179,9 +180,10 @@ export default {
         carNumber: this.info.licensePlateNumber,
       })
       this.leaseOrderListT3 = res.body.resultList
-      this.leaseOrderT3Empty = this.operationalDataList.length === 0
+      this.leaseOrderT3Empty = this.leaseOrderListT3.length === 0
       this.leaseOrderT3CanReLoad = res.body.totalCount > this.operationalDataList.length
     },
+    // 租赁订单-T3 加载
     async getT3LeaseOrderListReload() {
       if (!this.leaseOrderT3CanReLoad)
         return
@@ -195,6 +197,8 @@ export default {
     resetFormData() {
       this.operationalFormData.pageNum = 1
       this.violationFormData.pageNum = 1
+      this.leaseOrderFormData.pageNum = 1
+      this.leaseOrderT3FormData.pageNum = 1
     },
     tabChange(e) {
       this.active = e.detail.name
@@ -253,14 +257,14 @@ export default {
                 </van-tag>
               </view>
               <view class="text-xs">
-                <view>{{ info.licensePlateNumber }}</view>
+                <view>{{ info.city }}</view>
               </view>
             </view>
             <view />
             <view class="flex justify-between text-xs my-1">
               <view>车架号：{{ info.vehicleFrameNumber }}</view>
               <view>
-                {{ info.city }}
+                {{ info.licensePlateNumber }}
               </view>
             </view>
           </view>
@@ -307,13 +311,6 @@ export default {
           <view v-if="!operationalEmpty" class="bg-white">
             <data-flow :list="operationalDataList" />
             <scroll-btm :can-reload="operationalCanReLoad" />
-            <!--            <view class="text-center text-[#888] flex justify-center items-center"> -->
-            <!--              <view class="w-1/2"> -->
-            <!--                <van-divider content-position="center"> -->
-            <!--                  {{ operationalCanReLoad ? '正在加载' : '我也是有底线的' }} -->
-            <!--                </van-divider> -->
-            <!--              </view> -->
-            <!--            </view> -->
           </view>
         </van-tab>
         <van-tab title="违章" :name="2">
@@ -328,42 +325,42 @@ export default {
             <scroll-btm :can-reload="violationCanReLoad" />
           </view>
         </van-tab>
-        <!--        <van-tab title="租赁订单" :name="3"> -->
-        <!--          <view class="bg-white"> -->
-        <!--            <van-tabs -->
-        <!--              :active="orderActive" -->
-        <!--              color="#1296db" -->
-        <!--              :ellipsis="false" -->
-        <!--              line-width="100" -->
-        <!--              @change="orderChange" -->
-        <!--            > -->
-        <!--              <van-tab title="自营" :name="1"> -->
-        <!--                <view -->
-        <!--                  v-if="leaseOrderEmpty" -->
-        <!--                  class="bg-white" -->
-        <!--                > -->
-        <!--                  <van-empty description="暂无数据" /> -->
-        <!--                </view> -->
-        <!--                <view v-else class="bg-white p-2"> -->
-        <!--                  <lease-order :list="leaseOrderList" type="my" @click-event="toDetail" /> -->
-        <!--                  <scroll-btm :can-reload="leaseOrderCanReLoad" /> -->
-        <!--                </view> -->
-        <!--              </van-tab> -->
-        <!--              <van-tab title="T3" :name="2"> -->
-        <!--                <view -->
-        <!--                  v-if="leaseOrderT3Empty" -->
-        <!--                  class="bg-white" -->
-        <!--                > -->
-        <!--                  <van-empty description="暂无数据" /> -->
-        <!--                </view> -->
-        <!--                <view v-else class="bg-white p-2"> -->
-        <!--                  <lease-order :list="leaseOrderListT3" type="T3" @click-event="toDetail" /> -->
-        <!--                  <scroll-btm :can-reload="leaseOrderT3CanReLoad" /> -->
-        <!--                </view> -->
-        <!--              </van-tab> -->
-        <!--            </van-tabs> -->
-        <!--          </view> -->
-        <!--        </van-tab> -->
+        <van-tab title="租赁订单" :name="3">
+          <view class="bg-white">
+            <van-tabs
+              :active="orderActive"
+              color="#1296db"
+              :ellipsis="false"
+              line-width="100"
+              @change="orderChange"
+            >
+              <van-tab title="自营" :name="1">
+                <view
+                  v-if="leaseOrderEmpty"
+                  class="bg-white"
+                >
+                  <van-empty description="暂无数据" />
+                </view>
+                <view v-else class="bg-white p-2">
+                  <lease-order :list="leaseOrderList" type="my" @click-event="toDetail" />
+                  <scroll-btm :can-reload="leaseOrderCanReLoad" />
+                </view>
+              </van-tab>
+              <van-tab title="T3" :name="2">
+                <view
+                  v-if="leaseOrderT3Empty"
+                  class="bg-white"
+                >
+                  <van-empty description="暂无数据" />
+                </view>
+                <view v-else class="bg-white p-2">
+                  <lease-order :list="leaseOrderListT3" type="T3" @click-event="toDetail" />
+                  <scroll-btm :can-reload="leaseOrderT3CanReLoad" />
+                </view>
+              </van-tab>
+            </van-tabs>
+          </view>
+        </van-tab>
       </van-tabs>
     </view>
   </page>

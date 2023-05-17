@@ -43,7 +43,7 @@ axiosInstance.interceptors.response.use((response) => {
 })
 
 function isApiError(err: unknown): err is ApiError {
-  return err instanceof ApiError
+  return (err as any)?.__isApiError
 }
 
 /**

@@ -21,6 +21,7 @@ export default defineComponent({
   onLoad() {
   },
   onShow() {
+    uni.hideHomeButton()
     this.getCode()
   },
   methods: {

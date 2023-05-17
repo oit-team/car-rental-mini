@@ -20,13 +20,19 @@ export default {
     <view class="text-center">
       驾驶证
     </view>
-    <view v-if="info?.driveLicense?.driveLicenseAssistant && info?.driveLicense?.driveLicenseHost" class="w-full grid grid-cols-2 gap-2 p-2 box-border">
-      <image
-        class="w-140px h-140px mb-2"
+    <view v-if="info?.driveLicense?.driveLicenseAssistant && info?.driveLicense?.driveLicenseHost" class="w-full grid grid-cols-2 gap-1 p-2 box-border">
+      <van-image
+        width="140"
+        height="140"
+        class="w-140px h-140px"
+        fit="contain"
         :src="info.driveLicense?.driveLicenseAssistant"
       />
-      <image
+      <van-image
+        width="140"
+        height="140"
         class="w-140px h-140px"
+        fit="contain"
         :src="info.driveLicense?.driveLicenseHost"
       />
     </view>
@@ -36,17 +42,26 @@ export default {
     <view class="text-center">
       身份证
     </view>
-    <view v-if="info?.driverIdentity?.identityImg && info?.driverIdentity?.identityReverse && info?.driverIdentity?.identityStraight" class="w-full grid grid-cols-2 gap-2 p-2 box-border">
-      <image
-        class="w-140px h-140px mb-2"
+    <view v-if="info?.driverIdentity?.identityImg && info?.driverIdentity?.identityReverse && info?.driverIdentity?.identityStraight" class="w-full grid grid-cols-2 gap-1 p-2 box-border">
+      <van-image
+        width="140"
+        height="140"
+        class="w-140px h-140px"
+        fit="contain"
         :src="info.driverIdentity?.identityImg"
       />
-      <image
-        class="w-140px h-140px mb-2"
+      <van-image
+        width="140"
+        height="140"
+        class="w-140px h-140px"
+        fit="contain"
         :src="info.driverIdentity?.identityReverse"
       />
-      <image
+      <van-image
+        width="140"
+        height="140"
         class="w-140px h-140px"
+        fit="contain"
         :src="info.driverIdentity?.identityStraight"
       />
     </view>

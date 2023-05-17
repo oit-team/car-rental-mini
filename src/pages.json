@@ -48,17 +48,25 @@
     {
       "path": "pages/car/leaseOrderDetail",
       "style": {
+        "navigationBarTitleText": "订单详情"
       }
     },
     {
       "path": "pages/car/leaseOrderT3Detail",
       "style": {
+        "navigationBarTitleText": "订单详情"
       }
     },
     {
       "path": "pages/account/login",
       "style": {
         "navigationBarTitleText": "登录"
+      }
+    },
+    {
+      "path": "pages/lease/lease",
+      "style": {
+        "navigationBarTitleText": "租赁订单"
       }
     }
   ],
@@ -77,6 +85,11 @@
       "iconPath": "static/tabBar/car_s.png",
       "selectedIconPath": "static/tabBar/car.png",
       "text": "车辆"
+    }, {
+      "pagePath": "pages/lease/lease",
+      "iconPath": "static/lease/lease_s.png",
+      "selectedIconPath": "static/lease/lease.png",
+      "text": "租赁"
     }, {
       "pagePath": "pages/account/index",
       "iconPath": "static/tabBar/my_s.png",
