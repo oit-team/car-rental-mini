@@ -18,7 +18,7 @@ onLaunch(async () => {
   }
   else {
     await store.clearUserProfile()
-    await uni.showToast({ title: '先登录' })
+    await toast({ icon: 'error', title: '先登录' })
     clearToken()
     await uni.reLaunch({
       url: '/pages/account/login',

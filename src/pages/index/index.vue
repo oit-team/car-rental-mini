@@ -38,9 +38,9 @@ export default {
   },
   onLoad() {
   },
-  async onShow() {
+  onShow() {
     this.formData.pageNum = 1
-    this.logged && await this.getData()
+    this.logged && this.getData()
   },
   async onPullDownRefresh() {
     this.formData.pageNum = 1
@@ -78,7 +78,7 @@ export default {
       this.getData()
     },
     login() {
-      uni.navigateTo({
+      uni.reLaunch({
         url: '/pages/account/login',
       })
     },
@@ -104,10 +104,13 @@ export default {
 
 <template>
   <page classes="flex flex-col bg-neutral-100 min-h-screen">
-    <view v-if="!logged" class="w-[100vw] h-[100vh] bg-white flex justify-center items-center fixed top-0 left-0 z-20">
+    <view v-if="!logged" class="w-[100vw] h-[100vh] bg-white flex flex-col justify-center items-center fixed top-0 left-0 z-20">
       <view @click="login">
-        请先登录
+        <van-empty description="点击去登录" />
       </view>
+      <!--      <van-button type="default"> -->
+      <!--        去登陆 -->
+      <!--      </van-button> -->
     </view>
     <van-search
       :value="value"
