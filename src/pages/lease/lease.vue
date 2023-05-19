@@ -46,6 +46,7 @@ export default {
       showCalendar: false,
       showCalendarT3: false,
       searchFormData: {},
+      searchT3FormData: {},
     }
   },
   onShow() {
@@ -78,6 +79,7 @@ export default {
     async getLeaseOrder() {
       uni.showLoading({
         title: '加载中',
+        mask: true,
       })
       const res = await getLeaseOrderList({
         ...this.leaseOrderFormData,
@@ -106,7 +108,7 @@ export default {
     async getT3LeaseOrder() {
       const res = await getT3LeaseOrderList({
         ...this.leaseOrderT3FormData,
-        ...this.searchFormData,
+        ...this.searchT3FormData,
       }).finally(() => {
         uni.stopPullDownRefresh()
       })
@@ -120,7 +122,7 @@ export default {
         return
       const res = await this.$loading(getT3LeaseOrderList({
         ...this.leaseOrderT3FormData,
-        ...this.searchFormData,
+        ...this.searchT3FormData,
       }),
       )
       this.leaseOrderListT3 = [...this.leaseOrderListT3, ...res.body.resultList]
@@ -132,17 +134,9 @@ export default {
       this.showFilter = false
     },
     filterT3(e) {
-      this.searchFormData = { ...e }
+      this.searchT3FormData = { ...e }
       this.getT3LeaseOrder()
       this.showFilterT3 = false
-    },
-    resetForm() {
-      this.leaseOrderFormData.orderNo = ''
-      this.leaseOrderFormData.carNumber = ''
-      this.leaseOrderFormData.driverName = ''
-      this.leaseOrderFormData.schemeNo = ''
-    },
-    resetFormT3() {
     },
     onChange(e) {
       this.active = e.detail.name

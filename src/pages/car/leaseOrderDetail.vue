@@ -1,5 +1,6 @@
 <script>
 import { getLeaseOrderInfo } from '@/api/car'
+import { getWorkOrderList } from '@/api/work'
 
 export default {
   props: {
@@ -83,10 +84,18 @@ export default {
         },
       ],
       data: {},
+      active: 1,
+      workOrder: [],
+      workFormData: {
+        pageSize: 20,
+        pageNum: 1,
+      },
+      workOrderEmpty: true,
     }
   },
-  onShow() {
-    this.getData()
+  async onShow() {
+    await this.getData()
+    await this.getWorkOrder()
   },
   methods: {
     async getData() {
@@ -95,58 +104,136 @@ export default {
       })
       this.data = body
     },
+    async getWorkOrder() {
+      const { body } = await getWorkOrderList({
+        ...this.workFormData,
+        orderCode: this.data.orderInfo?.leaseOrderNo,
+      })
+      this.workOrder = body.resultList
+      this.workOrderEmpty = body.resultList?.length === 0
+    },
   },
 }
 </script>
 
 <template>
-  <page classes="min-h-screen bg-neutral-100 p-2 box-border">
-    <view>
-      <view class="my-2 text-sm text-[#777]">
-        司机信息
-      </view>
-      <van-cell-group inset>
-        <van-cell
-          v-for="item in driverInfo"
-          :key="item.value"
-          :title="item.title"
-          :value="data.driverInfo[item.value]"
-        />
-      </van-cell-group>
-    </view>
-    <view>
-      <view class="my-2 text-sm text-[#777]">
-        车辆信息
-      </view>
-      <van-cell-group inset>
-        <van-cell v-for="item in vehicleInfo" :key="item.value" :title="item.title" :value="data.vehicleInfo[item.value]" />
-      </van-cell-group>
-    </view>
-    <view>
-      <view class="my-2 text-sm text-[#777]">
-        租赁信息
-      </view>
-      <van-cell-group inset>
-        <van-cell v-for="item in orderInfo" :key="item.value" :title="item.title" :value="data.orderInfo[item.value] || '暂无'" />
-      </van-cell-group>
-    </view>
-    <view>
-      <view class="my-2 text-sm text-[#777]">
-        账单信息
-      </view>
-      <view class="bg-white rounded-lg">
-        <view v-for="item in data.billingInfo" :key="item.numberOfPeriods" class="flex justify-between items-center text-sm text-[#333] py-2 px-4">
-          <view class="flex-1">
-            {{ item.numberOfPeriods }}
+  <page classes="relative min-h-screen bg-neutral-100 box-border pb-12">
+    <van-tabs
+      :active="active"
+      color="#1296db"
+      sticky
+      @change="active = $event.detail.name"
+    >
+      <van-tab title="基础信息" :name="1">
+        <view class="px-2">
+          <view class="my-2 text-sm text-[#777]">
+            司机信息
           </view>
-          <view class="flex-1">
-            {{ item.accountingPeriod }}
+          <van-cell-group>
+            <van-cell
+              v-for="item in driverInfo"
+              :key="item.value"
+              :title="item.title"
+              :value="data.driverInfo[item.value]"
+            />
+          </van-cell-group>
+        </view>
+        <view class="px-2">
+          <view class="my-2 text-sm text-[#777]">
+            车辆信息
           </view>
-          <view class="flex-1 text-right">
-            {{ item.rent }}
+          <van-cell-group>
+            <van-cell v-for="item in vehicleInfo" :key="item.value" :title="item.title" :value="data.vehicleInfo[item.value]" />
+          </van-cell-group>
+        </view>
+      </van-tab>
+      <van-tab title="租赁信息" :name="2">
+        <view class="px-2">
+          <view class="my-2 text-sm text-[#777]">
+            租赁信息
+          </view>
+          <van-cell-group>
+            <van-cell v-for="item in orderInfo" :key="item.value" :title="item.title" :value="data.orderInfo[item.value] || '暂无'" />
+          </van-cell-group>
+        </view>
+        <view class="px-2">
+          <view class="my-2 text-sm text-[#777]">
+            账单信息
+          </view>
+          <view class="bg-white rounded-lg">
+            <view v-for="item in data.billingInfo" :key="item.numberOfPeriods" class="flex justify-between items-center text-sm text-[#333] py-2 px-4">
+              <view class="flex-1">
+                {{ item.numberOfPeriods }}
+              </view>
+              <view class="flex-1">
+                {{ item.accountingPeriod }}
+              </view>
+              <view class="flex-1 text-right">
+                {{ item.rent }}
+              </view>
+            </view>
           </view>
         </view>
-      </view>
+      </van-tab>
+      <van-tab title="工单" :name="3">
+        <view>
+          <view v-if="workOrderEmpty">
+            <van-empty description="暂无数据" />
+          </view>
+          <view v-else class="p-2">
+            <view
+              v-for="item in workOrder"
+              :key="item.id"
+              class="
+              p-2
+              leading-loose
+              shadow
+              rounded-md
+              mb-2
+              bg-white
+              text-xs"
+            >
+              <view class="flex place-content-between">
+                <view>
+                  {{ item.workCode }}
+                </view>
+                <view>
+                  <van-tag type="primary" class="ml-2">
+                    {{ item.statusName }}
+                  </van-tag>
+                </view>
+              </view>
+              <view class="flex place-content-between">
+                <view>司机姓名：{{ item.driverName }}</view>
+                <view>{{ item.licensePlateNumber }}</view>
+              </view>
+              <view class="flex place-content-between">
+                <van-tag type="success">
+                  {{ item.workName }}
+                </van-tag>
+                <view>
+                  {{ item.createDate }}
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </van-tab>
+    </van-tabs>
+
+    <view class="w-full fixed bottom-0 py-2 z-20 flex justify-around items-center">
+      <van-button size="small" color="#1296db">
+        换车
+      </van-button>
+      <van-button size="small" color="#1296db">
+        续约
+      </van-button>
+      <van-button size="small" color="#1296db">
+        续租
+      </van-button>
+      <van-button size="small" color="#1296db">
+        退车
+      </van-button>
     </view>
   </page>
 </template>

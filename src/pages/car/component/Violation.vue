@@ -21,8 +21,9 @@ export default {
     <view
       v-for="item in violation"
       :key="item.id"
-      class="border-1 border-solid border-[#ccc] rounded mb-2"
+      class="shadow rounded mb-2"
     >
+      <!--      class="border-1 border-solid border-[#ccc] rounded mb-2" -->
       <card>
         <template #title-left>
           <view class="flex">

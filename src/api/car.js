@@ -39,10 +39,10 @@ export function getT3OperationalDataList(params) {
 export function getLeaseOrderInfo(params) {
   return post('/order/leaseOrder/getLeaseOrderInfo', params)
 }
+
 /**
  * T3租赁订单详情
  */
 export function getT3LeaseOrderInfo(params) {
   return post('/order/leaseOrder/getT3LeaseOrderInfo', params)
 }
-

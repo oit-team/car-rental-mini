@@ -10,7 +10,7 @@ export default {
 
 <template>
   <view class="p-2 text-xs box-border">
-    <view v-for="(item, index) in list" :key="index" class="bg-white p-2 rounded mb-2 border-1 border-solid border-[#ccc]">
+    <view v-for="(item, index) in list" :key="index" class="bg-white p-2 rounded mb-2 shadow">
       <view class="mb-2">
         <span class=" text-[#888]">统计日期：</span> {{ item.statisticalDate }}
       </view>

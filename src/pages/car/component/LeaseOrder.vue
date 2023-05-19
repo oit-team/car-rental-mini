@@ -23,7 +23,7 @@ export default {
 
 <template>
   <view @click="$emit('click-event', { id: item.id, type })">
-    <view class="border-[#ccc] rounded-md mb-2" :class="card === 'card' ? 'shadow-lg bg-white' : 'border-1 border-solid'">
+    <view class="rounded-md mb-2" :class="card === 'card' ? 'shadow-lg bg-white' : 'shadow'">
       <view class="p-2">
         <view class="flex justify-between items-center leading-loose text-xs">
           <view>
