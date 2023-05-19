@@ -149,10 +149,10 @@ export default {
         url: `/pages/car/${url}?id=${p.id}&type=${p.type}`,
       })
     },
-    formatDate(date) {
-      date = new Date(date)
-      return `${date.getFullYear()}-${date.getMonth() + 1 > 9 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`}-${date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`}`
-    },
+    // formatDate(date) {
+    //   date = new Date(date)
+    //   return `${date.getFullYear()}-${date.getMonth() + 1 > 9 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`}-${date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`}`
+    // },
     // onConfirm(e) {
     //   const [start, end] = e.detail
     //   // console.log(this.formatDate(start), this.formatDate(end))

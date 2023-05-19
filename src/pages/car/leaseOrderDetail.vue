@@ -1,6 +1,6 @@
 <script>
 import { getLeaseOrderInfo } from '@/api/car'
-import { getWorkOrderList } from '@/api/work'
+import { getWorkFlowSteps, getWorkOrderList } from '@/api/work'
 
 export default {
   props: {
@@ -90,7 +90,11 @@ export default {
         pageSize: 20,
         pageNum: 1,
       },
+      nowDetail: {},
       workOrderEmpty: true,
+      show: false,
+      steps: [],
+      nowDetailEmpty: true,
     }
   },
   async onShow() {
@@ -111,6 +115,26 @@ export default {
       })
       this.workOrder = body.resultList
       this.workOrderEmpty = body.resultList?.length === 0
+    },
+    async getDetail(wCode, fCode) {
+      const { body } = await getWorkFlowSteps({
+        workCode: wCode,
+        flowCode: fCode,
+      })
+
+      if (body.workFlowSteps) {
+        this.steps = body.workFlowSteps.map((e) => {
+          return {
+            text: `[${e.name}] 操作人：${e.handleUser}`,
+            desc: e.handleTime,
+            activeIcon: 'checked',
+            inactiveIcon: 'checked',
+          }
+        })
+        this.steps = this.steps.reverse()
+      }
+      this.nowDetailEmpty = body.workFlowSteps?.length === 0
+      this.show = true
     },
   },
 }
@@ -183,15 +207,9 @@ export default {
           <view v-else class="p-2">
             <view
               v-for="item in workOrder"
-              :key="item.id"
-              class="
-              p-2
-              leading-loose
-              shadow
-              rounded-md
-              mb-2
-              bg-white
-              text-xs"
+              :key="item.workCode"
+              class="p-2 leading-loose shadow rounded-md mb-2 bg-white text-xs"
+              @click="getDetail(item.workCode, item.flowCode)"
             >
               <view class="flex place-content-between">
                 <view>
@@ -235,11 +253,31 @@ export default {
         退车
       </van-button>
     </view>
+
+    <van-popup
+      :show="show"
+      position="bottom"
+      :close-on-click-overlay="true"
+      round
+      @close="show = false"
+    >
+      <view class="h-60vh flex flex-col">
+        <view v-if="nowDetailEmpty">
+          <van-empty></van-empty>
+        </view>
+        <view v-else class="flex-1 overflow-hidden overflow-y-auto">
+          <van-steps
+            :steps="steps"
+            :active="0"
+            direction="vertical"
+            active-color="#1296db"
+            inactive-color="#1296db"
+          />
+        </view>
+      </view>
+    </van-popup>
   </page>
 </template>
 
 <style lang="scss" scoped>
-.van-cell-group--inset {
-  margin: 0;
-}
 </style>
