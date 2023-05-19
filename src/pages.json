@@ -1,0 +1,124 @@
+{
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "司机列表",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 10
+      }
+    },
+    {
+      "path": "pages/index/detail",
+      "style": {
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 10
+      }
+    },
+    {
+      "path": "pages/account/index",
+      "style": {
+        "navigationBarTitleText": "我的"
+      }
+    },
+    {
+      "path": "pages/account/login",
+      "style": {
+        "navigationBarTitleText": "登录"
+      }
+    },
+    {
+      "path": "pages/account/editPassword",
+      "style": {
+        "navigationBarTitleText": "修改密码"
+      }
+    },
+    {
+      "path": "pages/car/car",
+      "style": {
+        "navigationBarTitleText": "车辆列表"
+      }
+    },
+    {
+      "path": "pages/car/detail",
+      "style": {
+        "navigationBarTitleText": ""
+      }
+    },
+    {
+      "path": "pages/car/leaseOrderDetail",
+      "style": {
+        "navigationBarTitleText": "订单详情"
+      }
+    },
+    {
+      "path": "pages/car/leaseOrderT3Detail",
+      "style": {
+        "navigationBarTitleText": "订单详情"
+      }
+    },
+    {
+      "path": "pages/lease/lease",
+      "style": {
+        "navigationBarTitleText": "租赁订单"
+      }
+    }
+  ],
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#1296db",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [{
+      "pagePath": "pages/index/index",
+      "iconPath": "static/tabBar/driver_s.png",
+      "selectedIconPath": "static/tabBar/driver.png",
+      "text": "司机"
+    },{
+      "pagePath": "pages/car/car",
+      "iconPath": "static/tabBar/car_s.png",
+      "selectedIconPath": "static/tabBar/car.png",
+      "text": "车辆"
+    },{
+      "pagePath": "pages/lease/lease",
+      "iconPath": "static/tabBar/lease_s.png",
+      "selectedIconPath": "static/tabBar/lease.png",
+      "text": "订单"
+    },{
+      "pagePath": "pages/account/index",
+      "iconPath": "static/tabBar/my_s.png",
+      "selectedIconPath": "static/tabBar/my.png",
+      "text": "我的"
+    }]
+  },
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "浪汛租赁",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8",
+    "usingComponents": {
+      "van-button": "/wxcomponents/vant/button/index",
+      "van-toast": "/wxcomponents/vant/toast/index",
+      "van-dialog": "/wxcomponents/vant/dialog/index",
+      "van-icon": "/wxcomponents/vant/icon/index",
+      "van-cell": "/wxcomponents/vant/cell/index",
+      "van-image": "/wxcomponents/vant/image/index",
+      "van-field": "/wxcomponents/vant/field/index",
+      "van-search": "/wxcomponents/vant/search/index",
+      "van-tag": "/wxcomponents/vant/tag/index",
+      "van-tab": "/wxcomponents/vant/tab/index",
+      "van-tabs": "/wxcomponents/vant/tabs/index",
+      "van-divider": "/wxcomponents/vant/divider/index",
+      "van-empty": "/wxcomponents/vant/empty/index",
+      "van-collapse": "/wxcomponents/vant/collapse/index",
+      "van-picker": "/wxcomponents/vant/picker/index",
+      "van-calendar": "/wxcomponents/vant/calendar/index",
+      "van-radio": "/wxcomponents/vant/radio/index",
+      "van-popup": "/wxcomponents/vant/popup/index",
+      "van-radio-group": "/wxcomponents/vant/radio-group/index",
+      "van-datetime-picker": "/wxcomponents/vant/datetime-picker/index",
+      "van-collapse-item": "/wxcomponents/vant/collapse-item/index",
+      "van-cell-group": "/wxcomponents/vant/cell-group/index"
+    }
+  }
+}
