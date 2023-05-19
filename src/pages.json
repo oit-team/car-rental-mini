@@ -119,6 +119,7 @@
       "van-calendar": "/wxcomponents/vant/calendar/index",
       "van-radio": "/wxcomponents/vant/radio/index",
       "van-popup": "/wxcomponents/vant/popup/index",
+      "van-steps": "/wxcomponents/vant/steps/index",
       "van-radio-group": "/wxcomponents/vant/radio-group/index",
       "van-datetime-picker": "/wxcomponents/vant/datetime-picker/index",
       "van-collapse-item": "/wxcomponents/vant/collapse-item/index",
