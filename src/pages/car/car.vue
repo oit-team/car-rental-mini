@@ -70,7 +70,7 @@ export default {
       if (!this.canReLoad)
         return
       uni.showLoading({ title: '加载中', mask: true })
-      const res = await getVehicleList({ ...this.formData }).finally(() => uni.hideLoading())
+      const res = await this.$loading(getVehicleList({ ...this.formData }).finally(() => uni.hideLoading()))
       this.carList = this.carList.concat(...res.body.vehicleList)
       this.canReLoad = this.carList.length < res.body.count
       uni.hideLoading()

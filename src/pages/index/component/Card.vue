@@ -3,7 +3,6 @@ export default {
   components: {},
   props: {
   },
-  // emits: ['clickEvent'],
   data() {
     return {
     }
@@ -15,7 +14,7 @@ export default {
 </script>
 
 <template>
-  <view class="bg-white rounded" @click="$emit('clickEvent')">
+  <view class="bg-white rounded" @click="$emit('click-event')">
     <view class="flex justify-between items-center p-2 text-sm">
       <view>
         <slot name="title-left" />

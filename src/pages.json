@@ -48,7 +48,9 @@
     {
       "path": "pages/car/leaseOrderDetail",
       "style": {
-        "navigationBarTitleText": "订单详情"
+        "navigationBarTitleText": "订单详情",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 10
       }
     },
     {
@@ -60,7 +62,9 @@
     {
       "path": "pages/lease/lease",
       "style": {
-        "navigationBarTitleText": "租赁订单"
+        "navigationBarTitleText": "租赁订单",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 10
       }
     }
   ],

@@ -62,7 +62,6 @@ export default {
       await this.getLeaseOrder()
     else
       await this.getT3LeaseOrder()
-    uni.stopPullDownRefresh()
   },
   async onReachBottom() {
     if (this.active === 1) {
@@ -77,9 +76,15 @@ export default {
   methods: {
     // 租赁订单-自营
     async getLeaseOrder() {
+      uni.showLoading({
+        title: '加载中',
+      })
       const res = await getLeaseOrderList({
         ...this.leaseOrderFormData,
         ...this.searchFormData,
+      }).finally(() => {
+        uni.stopPullDownRefresh()
+        uni.hideLoading()
       })
       this.leaseOrderList = res.body.resultList
       this.leaseOrderEmpty = this.leaseOrderList.length === 0
@@ -89,10 +94,11 @@ export default {
     async getLeaseOrderListReload() {
       if (!this.leaseOrderCanReLoad)
         return
-      const res = await getLeaseOrderList({
+      const res = await this.$loading(getLeaseOrderList({
         ...this.leaseOrderFormData,
         ...this.searchFormData,
-      })
+      }),
+      )
       this.leaseOrderList = [...this.leaseOrderList, ...res.body.resultList]
       this.leaseOrderCanReLoad = res.body.totalCount > this.leaseOrderList.length
     },
@@ -101,6 +107,8 @@ export default {
       const res = await getT3LeaseOrderList({
         ...this.leaseOrderT3FormData,
         ...this.searchFormData,
+      }).finally(() => {
+        uni.stopPullDownRefresh()
       })
       this.leaseOrderListT3 = res.body.resultList
       this.leaseOrderT3Empty = this.leaseOrderListT3.length === 0
@@ -110,10 +118,11 @@ export default {
     async getT3LeaseOrderListReload() {
       if (!this.leaseOrderT3CanReLoad)
         return
-      const res = await getT3LeaseOrderList({
+      const res = await this.$loading(getT3LeaseOrderList({
         ...this.leaseOrderT3FormData,
         ...this.searchFormData,
-      })
+      }),
+      )
       this.leaseOrderListT3 = [...this.leaseOrderListT3, ...res.body.resultList]
       this.leaseOrderT3CanReLoad = res.body.totalCount > this.leaseOrderListT3.length
     },
@@ -150,16 +159,16 @@ export default {
       date = new Date(date)
       return `${date.getFullYear()}-${date.getMonth() + 1 > 9 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`}-${date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`}`
     },
-    onConfirm(e) {
-      const [start, end] = e.detail
-      // console.log(this.formatDate(start), this.formatDate(end))
-      this.showCalendar = false
-    },
-    onConfirmT3(e) {
-      const [start, end] = e.detail
-      // console.log(this.formatDate(start), this.formatDate(end))
-      this.showCalendarT3 = false
-    },
+    // onConfirm(e) {
+    //   const [start, end] = e.detail
+    //   // console.log(this.formatDate(start), this.formatDate(end))
+    //   this.showCalendar = false
+    // },
+    // onConfirmT3(e) {
+    //   const [start, end] = e.detail
+    //   // console.log(this.formatDate(start), this.formatDate(end))
+    //   this.showCalendarT3 = false
+    // },
   },
 }
 </script>

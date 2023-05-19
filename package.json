@@ -147,9 +147,7 @@
   "eslintConfig": {
     "extends": "@oit/uni-app",
     "rules": {
-      "vue/component-tags-order": "off",
-      "vue/custom-event-name-casing": "off",
-      "vue/no-unused-components": "off"
+      "vue/component-tags-order": "off"
     }
   }
 }

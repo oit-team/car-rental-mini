@@ -3,7 +3,6 @@ export default {
   props: {
     item: Object,
   },
-  // emits: ['toDetail'],
   data() {
     return {
       name: 'Vue',
@@ -19,7 +18,7 @@ export default {
 <template>
   <view
     class="bg-white shadow-md flex py-2 rounded box-border"
-    @click="$emit('toDetail')"
+    @click="$emit('to-detail')"
   >
     <view class="pl-2 flex items-center">
       <image
