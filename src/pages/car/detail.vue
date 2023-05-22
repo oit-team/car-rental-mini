@@ -219,7 +219,7 @@ export default {
     toDetail(p) {
       const url = p.type === 'T3' ? 'leaseOrderT3Detail' : 'leaseOrderDetail'
       uni.navigateTo({
-        url: `/pages/car/${url}?id=${p.id}&type=${p.type}`,
+        url: `/pages/lease/${url}?id=${p.id}&type=${p.type}`,
       })
     },
   },

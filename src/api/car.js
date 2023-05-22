@@ -30,7 +30,7 @@ export function getVehicleDetailed(params) {
  * 车辆流水
  */
 export function getT3OperationalDataList(params) {
-  return post('/vehicle/vehicle/getT3OperationalDataList', params)
+  return post('/vehicle/vehicle/getT3OperationalDatas', params)
 }
 
 /**
@@ -45,4 +45,11 @@ export function getLeaseOrderInfo(params) {
  */
 export function getT3LeaseOrderInfo(params) {
   return post('/order/leaseOrder/getT3LeaseOrderInfo', params)
+}
+
+/**
+ * 车牌号检索
+ */
+export function getVehicles(params) {
+  return post('/vehicle/vehicle/getVehicles', params)
 }

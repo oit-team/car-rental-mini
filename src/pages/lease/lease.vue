@@ -129,11 +129,13 @@ export default {
       this.leaseOrderT3CanReLoad = res.body.totalCount > this.leaseOrderListT3.length
     },
     filter(e) {
+      this.leaseOrderFormData.pageNum = 1
       this.searchFormData = { ...e }
       this.getLeaseOrder()
       this.showFilter = false
     },
     filterT3(e) {
+      this.leaseOrderT3FormData.pageNum = 1
       this.searchT3FormData = { ...e }
       this.getT3LeaseOrder()
       this.showFilterT3 = false
@@ -146,7 +148,7 @@ export default {
     toDetail(p) {
       const url = p.type === 'T3' ? 'leaseOrderT3Detail' : 'leaseOrderDetail'
       uni.navigateTo({
-        url: `/pages/car/${url}?id=${p.id}&type=${p.type}`,
+        url: `/pages/lease/${url}?id=${p.id}&type=${p.type}`,
       })
     },
     // formatDate(date) {
@@ -224,20 +226,6 @@ export default {
     <search-popup :show="showFilter" type="my" @close="showFilter = false" @filter="filter" />
     <!--    T3 -->
     <search-popup :show="showFilterT3" type="T3" @close="showFilterT3 = false" @filter="filterT3" />
-
-    <!--    <van-calendar -->
-    <!--      :show="showCalendar" -->
-    <!--      type="range" -->
-    <!--      @close="showCalendar = false" -->
-    <!--      @confirm="onConfirm" -->
-    <!--    /> -->
-
-    <!--    <van-calendar -->
-    <!--      :show="showCalendarT3" -->
-    <!--      type="range" -->
-    <!--      @close="showCalendarT3 = false" -->
-    <!--      @confirm="onConfirmT3" -->
-    <!--    /> -->
 
     <back-top />
   </page>

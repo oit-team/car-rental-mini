@@ -46,7 +46,7 @@
       }
     },
     {
-      "path": "pages/car/leaseOrderDetail",
+      "path": "pages/lease/leaseOrderDetail",
       "style": {
         "navigationBarTitleText": "订单详情",
         "enablePullDownRefresh": true,
@@ -54,7 +54,7 @@
       }
     },
     {
-      "path": "pages/car/leaseOrderT3Detail",
+      "path": "pages/lease/leaseOrderT3Detail",
       "style": {
         "navigationBarTitleText": "订单详情"
       }
@@ -63,6 +63,20 @@
       "path": "pages/lease/lease",
       "style": {
         "navigationBarTitleText": "租赁订单",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 10
+      }
+    },
+    {
+      "path": "pages/lease/change",
+      "style": {
+        "navigationBarTitleText": "退车申请"
+      }
+    },
+    {
+      "path": "pages/lease/searchInput",
+      "style": {
+        "navigationBarTitleText": "搜索",
         "enablePullDownRefresh": true,
         "onReachBottomDistance": 10
       }

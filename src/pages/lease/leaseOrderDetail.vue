@@ -136,6 +136,11 @@ export default {
       this.nowDetailEmpty = body.workFlowSteps?.length === 0
       this.show = true
     },
+    toChange() {
+      uni.navigateTo({
+        url: '/pages/lease/change',
+      })
+    },
   },
 }
 </script>
@@ -239,17 +244,17 @@ export default {
       </van-tab>
     </van-tabs>
 
-    <view class="w-full fixed bottom-0 py-2 z-20 flex justify-around items-center">
-      <van-button size="small" color="#1296db">
+    <view class="w-full fixed bottom-0 p-2 z-20 box-border grid grid-cols-4 gap-1 bg-white shadow">
+      <van-button size="small" block class="flex-1" color="#fb923c" @click="toChange()">
         换车
       </van-button>
-      <van-button size="small" color="#1296db">
+      <van-button size="small" block class="flex-1" color="#1296db">
         续约
       </van-button>
-      <van-button size="small" color="#1296db">
+      <van-button size="small" block class="flex-1" color="#1296db">
         续租
       </van-button>
-      <van-button size="small" color="#1296db">
+      <van-button size="small" block class="flex-1" color="#be123c">
         退车
       </van-button>
     </view>
