@@ -161,7 +161,6 @@ export default {
   <page classes="relative min-h-screen bg-neutral-100 box-border pb-12">
     <van-tabs
       :active="active"
-      color="#1296db"
       sticky
       @change="active = $event.detail.name"
     >
@@ -266,7 +265,7 @@ export default {
       <van-button size="small" block class="flex-1" color="#1296db">
         续约
       </van-button>
-      <van-button size="small" block class="flex-1" color="#1296db">
+      <van-button size="small" block class="flex-1" color="#1296db" @click="uni.navigateTo({ url: `/pages/order/car-renewal/apply?orderNo=${data.orderInfo.leaseOrderNo}` })">
         续租
       </van-button>
       <van-button size="small" block class="flex-1" color="#be123c">
