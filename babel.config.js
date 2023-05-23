@@ -37,7 +37,8 @@ if (
         },
       },
     ])
-  } catch (e) {}
+  }
+  catch (e) {}
 }
 
 process.UNI_LIBRARIES = process.UNI_LIBRARIES || ['@dcloudio/uni-ui']
@@ -72,7 +73,8 @@ if (process.env.NODE_ENV === 'production') {
     test: UNI_H5_TEST,
     compact: true,
   }]
-} else {
+}
+else {
   config.ignore = [UNI_H5_TEST]
 }
 

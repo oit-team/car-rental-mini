@@ -245,12 +245,12 @@ export default {
       nowKey: '',
       isOnlineCar: ['是', '否'],
       formatter(type, value) {
-        if (type === 'year') {
+        if (type === 'year')
           return `${value}年`
-        }
-        if (type === 'month') {
+
+        if (type === 'month')
           return `${value}月`
-        }
+
         return value
       },
       formData: {
@@ -320,7 +320,8 @@ export default {
         value: item.userName,
         index: item.userId,
       }))
-      if (this.staffColumns.length === 0) return
+      if (this.staffColumns.length === 0)
+        return
       this.staffPicker = true
     },
     async leaderChange(e) {
@@ -331,7 +332,8 @@ export default {
         value: item.userName,
         index: item.userId,
       }))
-      if (this.leaderColumns.length === 0) return
+      if (this.leaderColumns.length === 0)
+        return
       this.leaderPicker = true
     },
     cityConfirm(e) {
@@ -373,9 +375,9 @@ export default {
     },
     async submit() {
       const dt = { ...this.formData }
-      if (dt.driverName) {
+      if (dt.driverName)
         return this.$toast.warning('有必填项未填')
-      }
+
       await addDriverInfo({
         ...this.formData,
       })

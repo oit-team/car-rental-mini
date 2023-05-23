@@ -1,7 +1,6 @@
 <template>
   <view class="w-full h-full bg-white p-3">
-    <view>
-    </view>
+    <view />
   </view>
 </template>
 

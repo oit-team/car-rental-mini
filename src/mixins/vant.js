@@ -5,20 +5,21 @@ let containerCache = null
 function checkContainer() {
   const container = this.$children[0]
 
-  if (containerCache === container) return
+  if (containerCache === container)
+    return
 
   containerCache = container
 
-  if (container?.$options?.name !== 'container') warn(`首个元素必须是 <container> 页面 ${this.__route__}`)
+  if (container?.$options?.name !== 'container')
+    warn(`首个元素必须是 <container> 页面 ${this.__route__}`)
 }
 
 const noop = () => {}
 
 export default {
   mounted() {
-    if (this.mpType === 'page') {
+    if (this.mpType === 'page')
       checkContainer.call(this)
-    }
   },
   // 初始化onShow,onHide事件，以便container组件能正常添加挂载
   onShow: noop,
@@ -33,9 +34,8 @@ export default {
 
       dataKeys.forEach((key) => {
         this.$watch(key, (value) => {
-          if (value?.currentTarget?.dataset?.comType === 'wx') {
+          if (value?.currentTarget?.dataset?.comType === 'wx')
             this[key] = value.detail
-          }
         })
       })
     },

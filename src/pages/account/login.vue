@@ -6,7 +6,7 @@
           width="70"
           height="100"
           :src="require('../../static/logo.jpg')"
-        ></van-image>
+        />
         <view class="leading-normal mt-2 text-sm text-center">
           浪汛租车系统
         </view>
@@ -18,7 +18,7 @@
         clearable
         maxlength="50"
         @change="username = $event.detail"
-      ></van-field>
+      />
       <van-field
         :value="password"
         left-icon="lock"
@@ -27,7 +27,7 @@
         maxlength="50"
         placeholder="密码"
         @change="password = $event.detail"
-      ></van-field>
+      />
       <view class="w-full flex justify-between gap-1 pl-3 box-border items-center">
         <van-image
           class="my-2"
@@ -35,7 +35,7 @@
           height="30"
           :src="imgCode"
           @click="getCode()"
-        ></van-image>
+        />
         <van-field
           :value="checkCode"
           class="flex-1"
@@ -43,8 +43,7 @@
           clearable
           placeholder="验证码"
           @change="checkCode = $event.detail"
-        >
-        </van-field>
+        />
       </view>
       <view class="m-5" @click="login()">
         <van-button round block type="info" native-type="submit">
@@ -60,7 +59,7 @@ import crypto from '../../utils/crypto'
 import { getCode, userLogin } from '@/api/account'
 
 export default {
-  name: 'index',
+  name: 'Index',
   data() {
     return {
       username: '',
@@ -79,15 +78,17 @@ export default {
       const res = await getCode({}, {
         responseType: 'arraybuffer',
       })
-      if (res) {
+      if (res)
         this.imgCode = `data:image/png;base64,${uni.arrayBufferToBase64(res)}`
-      }
     },
 
     async login() {
-      if (this.username === '') return this.$toast('请输入账号')
-      if (this.password === '') return this.$toast('请输入密码')
-      if (this.checkCode === '') return this.$toast('请输入验证码')
+      if (this.username === '')
+        return this.$toast('请输入账号')
+      if (this.password === '')
+        return this.$toast('请输入密码')
+      if (this.checkCode === '')
+        return this.$toast('请输入验证码')
 
       this.$toast.loading({
         message: '正在登录...',

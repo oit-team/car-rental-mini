@@ -32,18 +32,18 @@ export default {
     filter() {
       const obj = this.type === 'my'
         ? {
-          orderNo: this.orderNo,
-          carNumber: this.carNumber,
-          driverName: this.driverName,
-          schemeNo: this.schemeNo,
-        }
+            orderNo: this.orderNo,
+            carNumber: this.carNumber,
+            driverName: this.driverName,
+            schemeNo: this.schemeNo,
+          }
         : {
-          orderNo: this.orderNo,
-          carNumber: this.carNumber,
-          schemeNo: this.schemeNo,
-          vinNo: this.vinNo,
-          driverId: this.driverId,
-        }
+            orderNo: this.orderNo,
+            carNumber: this.carNumber,
+            schemeNo: this.schemeNo,
+            vinNo: this.vinNo,
+            driverId: this.driverId,
+          }
       this.$emit('filter', obj)
     },
   },

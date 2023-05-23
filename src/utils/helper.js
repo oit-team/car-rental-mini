@@ -1,15 +1,15 @@
 import Toast from '@/wxcomponents/vant/toast/toast'
 
 export function convertToUnit(str, unit = 'px') {
-  if (str === null || str === undefined || str === '') return ''
+  if (str === null || str === undefined || str === '')
+    return ''
 
   let size
 
-  if (isNaN(+str)) {
+  if (isNaN(+str))
     size = String(str)
-  } else {
+  else
     size = `${Number(str)}${unit}`
-  }
 
   if (/([0-9]+(\.?[0-9]+)?)px$/.test(size)) {
     const num = parseFloat(size)
@@ -45,7 +45,8 @@ export function promiseLoading(promises, config) {
   }
 
   // 数组时执行all方法
-  if (Array.isArray(promises)) return Promise.all(promises).finally(closeToast)
+  if (Array.isArray(promises))
+    return Promise.all(promises).finally(closeToast)
   return promises.finally(closeToast)
 }
 
@@ -73,14 +74,16 @@ export function assert(check, msg) {
 export function querystringify(object) {
   const query = []
   Object.entries(object).forEach(([key, value]) => {
-    if (value !== undefined) query.push(`${key}=${value}`)
+    if (value !== undefined)
+      query.push(`${key}=${value}`)
   })
   return query.join('&')
 }
 
 export async function unwrapPromise(promise) {
   const [err, res] = await promise
-  if (err) throw err
+  if (err)
+    throw err
   return res
 }
 

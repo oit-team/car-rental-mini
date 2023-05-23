@@ -1,5 +1,5 @@
 <template>
-  <view class="container" :class="[{ 'container-flex': flex }, classes]" :style="[{ minHeight }]">
+  <view class="page" :class="[{ 'page-flex': flex }, classes]" :style="[{ minHeight }]">
     <van-toast id="van-toast" />
     <van-dialog id="van-dialog" />
 
@@ -12,7 +12,7 @@ import Toast from '@/wxcomponents/vant/toast/toast'
 import Dialog from '@/wxcomponents/vant/dialog/dialog'
 
 export default {
-  name: 'container',
+  name: 'Page',
 
   options: {
     virtualHost: true,
@@ -43,14 +43,14 @@ export default {
 
   methods: {
     init() {
-      const container = this.$scope
+      const page = this.$scope
 
       Toast.setDefaultOptions({
-        context: container,
+        context: page,
       })
 
       Dialog.setDefaultOptions({
-        context: container,
+        context: page,
       })
     },
     /**
@@ -60,11 +60,13 @@ export default {
       const options = this.$parent.$options
 
       // onShow时重新配置
-      if (!Array.isArray(options.onShow)) options.onShow = []
+      if (!Array.isArray(options.onShow))
+        options.onShow = []
       options.onShow.push(this.init.bind(this))
 
       // onHide时关闭toast
-      if (!Array.isArray(options.onHide)) options.onHide = []
+      if (!Array.isArray(options.onHide))
+        options.onHide = []
       options.onHide.push(() => {
         Toast.clear()
       })
@@ -74,12 +76,12 @@ export default {
 </script>
 
 <style>
-.container {
+.page {
   min-height: 100vh;
   box-sizing: border-box;
 }
 
-.container-flex {
+.page-flex {
   display: flex;
   flex-direction: column;
 }

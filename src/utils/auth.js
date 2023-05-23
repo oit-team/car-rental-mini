@@ -16,8 +16,10 @@ export function checkPermission(role) {
  * @param {function} condition.customer 客户
  */
 export function withPermission(condition) {
-  if (checkPermission(WAITER)) return condition?.waiter
-  else if (checkPermission(CUSTOMER)) return condition?.customer
+  if (checkPermission(WAITER))
+    return condition?.waiter
+  else if (checkPermission(CUSTOMER))
+    return condition?.customer
 }
 
 // 验证角色是否是客户

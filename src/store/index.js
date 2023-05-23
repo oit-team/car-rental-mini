@@ -32,7 +32,8 @@ export default new Vuex.Store({
         const res = await userLogin(form)
         setToken(res.body.accessToken)
         ctx.commit('setUserInfo', res.body)
-      } catch (err) {
+      }
+      catch (err) {
         clearToken()
         throw err
       }
