@@ -18,6 +18,13 @@ export default {
 }
 </script>
 
+<template>
+  <view class="w-full h-full bg-white p-3">
+    <view>
+    </view>
+  </view>
+</template>
+
 <style lang="scss" scoped>
 
 </style>

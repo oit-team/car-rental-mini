@@ -1,3 +1,172 @@
+<script>
+import { addDriverInfo, getCitiesName } from '../../api/driver'
+import { getUserByKeyword } from '../../api/user'
+import { driveLicenseForm, driveLicenseTimeForm, driverForm, onlineCarForm, onlineCarTimeForm } from './form'
+
+export default {
+  components: {},
+  data() {
+    return {
+      driverForm,
+      driveLicenseForm,
+      driveLicenseTimeForm,
+      onlineCarForm,
+      onlineCarTimeForm,
+      activeNames: ['1', '2', '3', '4'],
+      cityColumns: [], // 城市列表
+      staffColumns: [], // 员工列表
+      leaderColumns: [], // 负责人列表
+      cityPicker: false,
+      staffPicker: false,
+      leaderPicker: false,
+      isOnlineCarPicker: false,
+      showDriverTime: false,
+      showLicenseTime: false,
+      showOnlineTime: false,
+      nowKey: '',
+      isOnlineCar: ['是', '否'],
+      formatter(type, value) {
+        if (type === 'year') {
+          return `${value}年`
+        }
+        if (type === 'month') {
+          return `${value}月`
+        }
+        return value
+      },
+      formData: {
+        driverName: '',
+        identityCard: '',
+        address: '',
+        driverPhone: '',
+        exclusiveService: '',
+        exclusiveServiceId: '',
+        city: '',
+        salesLeader: '',
+        salesLeaderId: '',
+        // 网约车资格证
+        driverQualifica: {
+          qualificaCode: '',
+          issuingAuthority: '',
+          isOnlineCar: '',
+          issuingTime: '',
+          theFirstTime: '',
+          effectiveStartTime: '',
+          effectiveEndTime: '',
+          reportingTime: '',
+          certificateImg: '',
+        },
+        // 身份证信息
+        driverIdentity: {
+          startTime: '',
+          endTime: '',
+          issuingInstitution: '',
+          identityStraight: '',
+          identityReverse: '',
+          identityImg: '',
+        },
+        // 司机驾驶证
+        driveLicense: {
+          driveLicenseCode: '',
+          permitDriveVehicle: '',
+          startTime: '',
+          endTime: '',
+          drawTime: '',
+          filesCode: '',
+          driveLicenseHost: '',
+          driveLicenseAssistant: '',
+        },
+      },
+    }
+  },
+  computed: {},
+  watch: {
+  },
+  onShow() {
+    this.useVantModel(['username'])
+  },
+  methods: {
+    async cityChange(e) {
+      const res = await getCitiesName({
+        keyWord: e,
+      })
+      this.cityColumns = res.body.citiesName
+      this.cityPicker = true
+    },
+    async staffChange(e) {
+      const res = await getUserByKeyword({
+        keyWord: e,
+      })
+      this.staffColumns = res.body.result.map(item => ({
+        value: item.userName,
+        index: item.userId,
+      }))
+      if (this.staffColumns.length === 0) return
+      this.staffPicker = true
+    },
+    async leaderChange(e) {
+      const res = await getUserByKeyword({
+        keyWord: e,
+      })
+      this.leaderColumns = res.body.result.map(item => ({
+        value: item.userName,
+        index: item.userId,
+      }))
+      if (this.leaderColumns.length === 0) return
+      this.leaderPicker = true
+    },
+    cityConfirm(e) {
+      this.formData.city = e.detail.value
+      this.cityPicker = false
+    },
+    staffConfirm(e) {
+      this.formData.exclusiveService = e.detail.value.value
+      this.formData.exclusiveServiceId = e.detail.value.index
+      this.staffPicker = false
+    },
+    leaderConfirm(e) {
+      this.formData.salesLeader = e.detail.value.value
+      this.formData.salesLeaderId = e.detail.value.index
+      this.leaderPicker = false
+    },
+    isOnlineCarConfirm(e) {
+      this.formData.driverQualifica.isOnlineCar = e.detail.value
+      this.isOnlineCarPicker = false
+    },
+    formatDate(date) {
+      date = new Date(date)
+      const month = date.getMonth() + 1 > 9 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`
+      const dt = date.getDate() >= 10 ? date.getDate() : `0${date.getDate()}`
+      return `${date.getFullYear()}-${month}-${dt}`
+    },
+
+    timerDriverConfirm(e) {
+      this.formData.driverIdentity[this.nowKey] = this.formatDate(e.detail)
+      this.showDriverTime = false
+    },
+    timerLicenseConfirm(e) {
+      this.formData.driveLicense[this.nowKey] = this.formatDate(e.detail)
+      this.showLicenseTime = false
+    },
+    timerOnlineConfirm(e) {
+      this.formData.driverQualifica[this.nowKey] = this.formatDate(e.detail)
+      this.showOnlineTime = false
+    },
+    async submit() {
+      const dt = { ...this.formData }
+      if (dt.driverName) {
+        return this.$toast.warning('有必填项未填')
+      }
+      await addDriverInfo({
+        ...this.formData,
+      })
+      this.$toast.success('新增成功')
+      uni.navigateBack()
+    },
+  },
+}
+</script>
+
 <template>
   <page classes="h-full bg-neutral-100 p-3">
     <van-collapse :value="activeNames" @change="activeNames = $event.detail">
@@ -216,177 +385,6 @@
     </van-popup>
   </page>
 </template>
-
-<script>
-import { addDriverInfo, getCitiesName } from '../../api/driver'
-import { getUserByKeyword } from '../../api/user'
-import { driveLicenseForm, driveLicenseTimeForm, driverForm, onlineCarForm, onlineCarTimeForm } from './form'
-
-export default {
-  components: {},
-  data() {
-    return {
-      driverForm,
-      driveLicenseForm,
-      driveLicenseTimeForm,
-      onlineCarForm,
-      onlineCarTimeForm,
-      activeNames: ['1', '2', '3', '4'],
-      cityColumns: [], // 城市列表
-      staffColumns: [], // 员工列表
-      leaderColumns: [], // 负责人列表
-      cityPicker: false,
-      staffPicker: false,
-      leaderPicker: false,
-      isOnlineCarPicker: false,
-      showDriverTime: false,
-      showLicenseTime: false,
-      showOnlineTime: false,
-      nowKey: '',
-      isOnlineCar: ['是', '否'],
-      formatter(type, value) {
-        if (type === 'year')
-          return `${value}年`
-
-        if (type === 'month')
-          return `${value}月`
-
-        return value
-      },
-      formData: {
-        driverName: '',
-        identityCard: '',
-        address: '',
-        driverPhone: '',
-        exclusiveService: '',
-        exclusiveServiceId: '',
-        city: '',
-        salesLeader: '',
-        salesLeaderId: '',
-        // 网约车资格证
-        driverQualifica: {
-          qualificaCode: '',
-          issuingAuthority: '',
-          isOnlineCar: '',
-          issuingTime: '',
-          theFirstTime: '',
-          effectiveStartTime: '',
-          effectiveEndTime: '',
-          reportingTime: '',
-          certificateImg: '',
-        },
-        // 身份证信息
-        driverIdentity: {
-          startTime: '',
-          endTime: '',
-          issuingInstitution: '',
-          identityStraight: '',
-          identityReverse: '',
-          identityImg: '',
-        },
-        // 司机驾驶证
-        driveLicense: {
-          driveLicenseCode: '',
-          permitDriveVehicle: '',
-          startTime: '',
-          endTime: '',
-          drawTime: '',
-          filesCode: '',
-          driveLicenseHost: '',
-          driveLicenseAssistant: '',
-        },
-      },
-    }
-  },
-  computed: {},
-  watch: {
-  },
-  onShow() {
-    this.useVantModel(['username'])
-  },
-  methods: {
-    async cityChange(e) {
-      const res = await getCitiesName({
-        keyWord: e,
-      })
-      this.cityColumns = res.body.citiesName
-      this.cityPicker = true
-    },
-    async staffChange(e) {
-      const res = await getUserByKeyword({
-        keyWord: e,
-      })
-      this.staffColumns = res.body.result.map(item => ({
-        value: item.userName,
-        index: item.userId,
-      }))
-      if (this.staffColumns.length === 0)
-        return
-      this.staffPicker = true
-    },
-    async leaderChange(e) {
-      const res = await getUserByKeyword({
-        keyWord: e,
-      })
-      this.leaderColumns = res.body.result.map(item => ({
-        value: item.userName,
-        index: item.userId,
-      }))
-      if (this.leaderColumns.length === 0)
-        return
-      this.leaderPicker = true
-    },
-    cityConfirm(e) {
-      this.formData.city = e.detail.value
-      this.cityPicker = false
-    },
-    staffConfirm(e) {
-      this.formData.exclusiveService = e.detail.value.value
-      this.formData.exclusiveServiceId = e.detail.value.index
-      this.staffPicker = false
-    },
-    leaderConfirm(e) {
-      this.formData.salesLeader = e.detail.value.value
-      this.formData.salesLeaderId = e.detail.value.index
-      this.leaderPicker = false
-    },
-    isOnlineCarConfirm(e) {
-      this.formData.driverQualifica.isOnlineCar = e.detail.value
-      this.isOnlineCarPicker = false
-    },
-    formatDate(date) {
-      date = new Date(date)
-      const month = date.getMonth() + 1 > 9 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`
-      const dt = date.getDate() >= 10 ? date.getDate() : `0${date.getDate()}`
-      return `${date.getFullYear()}-${month}-${dt}`
-    },
-
-    timerDriverConfirm(e) {
-      this.formData.driverIdentity[this.nowKey] = this.formatDate(e.detail)
-      this.showDriverTime = false
-    },
-    timerLicenseConfirm(e) {
-      this.formData.driveLicense[this.nowKey] = this.formatDate(e.detail)
-      this.showLicenseTime = false
-    },
-    timerOnlineConfirm(e) {
-      this.formData.driverQualifica[this.nowKey] = this.formatDate(e.detail)
-      this.showOnlineTime = false
-    },
-    async submit() {
-      const dt = { ...this.formData }
-      if (dt.driverName)
-        return this.$toast.warning('有必填项未填')
-
-      await addDriverInfo({
-        ...this.formData,
-      })
-      this.$toast.success('新增成功')
-      uni.navigateBack()
-    },
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 :deep(.van-cell-group){

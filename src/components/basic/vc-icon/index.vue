@@ -1,9 +1,3 @@
-<template>
-  <text class="iconfont">
-    {{ iconCode }}
-  </text>
-</template>
-
 <script>
 export default {
   name: 'VcIcon',
@@ -23,6 +17,12 @@ export default {
   },
 }
 </script>
+
+<template>
+  <text class="iconfont">
+    {{ iconCode }}
+  </text>
+</template>
 
 <style lang='scss'>
 .iconfont {

@@ -75,6 +75,15 @@ export default {
 }
 </script>
 
+<template>
+  <view class="container" :class="[{ 'container-flex': flex }, classes]" :style="[{ minHeight }]">
+    <van-toast id="van-toast" />
+    <van-dialog id="van-dialog" />
+
+    <slot />
+  </view>
+</template>
+
 <style>
 .page {
   min-height: 100vh;

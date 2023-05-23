@@ -7,7 +7,7 @@
       placeholder="旧密码"
       @change="oldPassowrd = $event.detail"
     >
-      <van-icon slot="right-icon" name="eye-o" @click="hide = !hide" />
+      <van-icon slot="right-icon" name="eye-o" @click="hide = !hide"></van-icon>
       <!--      <van-icon slot="right-icon" :name="hide ? 'eye-o' : 'closed-eye'" @click="hide = !hide"></van-icon> -->
     </van-field>
     <van-field

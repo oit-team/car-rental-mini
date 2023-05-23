@@ -84,6 +84,12 @@ wx.onUnhandledRejection(({ reason }) => {
     if (httpStatusCode > 500)
       msg = '服务器出错\n请稍后重试'
 
+    switch (httpStatusCode) {
+      case 403:
+        uni.navigateTo('/pages/account/login')
+        return
+    }
+
     // 弹出提示
     Toast.fail(msg)
   }
