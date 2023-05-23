@@ -13,3 +13,10 @@ export function getWorkOrderList(params) {
 export function getWorkFlowSteps(params) {
   return post('/workFlow/workFlow/getWorkFlowSteps', params)
 }
+
+/**
+ * 延期申请第一步点击确认
+ */
+export function workOrderApply(params) {
+  return post('/workFlow/workFlow/workOrderApply', params)
+}
