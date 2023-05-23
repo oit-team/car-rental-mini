@@ -23,7 +23,6 @@ export default {
       this.list = res.body.resultList
     },
     choose(item) {
-      console.log(item)
       uni.$emit('choose-driver', item)
       uni.navigateBack()
     },
