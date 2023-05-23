@@ -256,11 +256,11 @@ export default {
       </van-tab>
     </van-tabs>
 
-    <view class="w-full fixed bottom-0 p-2 z-20 box-border grid grid-cols-4 gap-1 bg-white shadow">
+    <view class="w-full fixed bottom-0 p-2 z-20 box-border grid grid-cols-5 gap-1 bg-white shadow">
       <van-button size="small" block class="flex-1" color="#fb923c" @click="toChange()">
         换车
       </van-button>
-      <van-button size="small" color="#1296db" @click="goToPostpone(workOrder[0])">
+      <van-button size="small" block class="flex-1" color="#1296db" @click="goToPostpone(workOrder[0])">
         延期
       </van-button>
       <van-button size="small" block class="flex-1" color="#1296db">
