@@ -15,8 +15,15 @@ export function getWorkFlowSteps(params) {
 }
 
 /**
- * T3租赁订单详情
+ * 延期申请第一步点击确认
+ */
+export function workOrderApply(params) {
+  return post('/workFlow/workFlow/workOrderApply', params)
+}
+
+/* T3租赁订单详情
  */
 export function addVehicleChangeRecords(params) {
   return post('/order/leaseOrder/addVehicleChangeRecords', params)
 }
+

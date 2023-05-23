@@ -136,6 +136,12 @@ export default {
       this.nowDetailEmpty = body.workFlowSteps?.length === 0
       this.show = true
     },
+    // 去延期申请
+    goToPostpone(workCode) {
+      uni.navigateTo({
+        url: `/pages/car/PostponeRequest?workCode=${workCode?.workCode}&orderCode=${workCode?.orderCode}&flowCode=${workCode?.flowCode}`,
+      })
+    },
     toChange() {
       uni.setStorageSync('leaseOrderNo', this.data.orderInfo?.leaseOrderNo)
       uni.setStorageSync('oldVehicleId', this.data.orderInfo?.vehicleId)
@@ -147,6 +153,7 @@ export default {
       // })
     },
   },
+
 }
 </script>
 
@@ -253,6 +260,9 @@ export default {
       <van-button size="small" block class="flex-1" color="#fb923c" @click="toChange()">
         换车
       </van-button>
+      <van-button size="small" color="#1296db" @click="goToPostpone(workOrder[0])">
+        延期
+      </van-button>
       <van-button size="small" block class="flex-1" color="#1296db">
         续约
       </van-button>
@@ -273,7 +283,7 @@ export default {
     >
       <view class="h-60vh flex flex-col">
         <view v-if="nowDetailEmpty">
-          <van-empty></van-empty>
+          <van-empty />
         </view>
         <view v-else class="flex-1 overflow-hidden overflow-y-auto">
           <van-steps

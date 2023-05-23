@@ -16,7 +16,7 @@ import Dialog from '@/wxcomponents/vant/dialog/dialog'
 // 公共组件，只能在main.js里注册
 import Container from '@/components/business/Container'
 
-Vue.component('page', Container)
+Vue.component('Page', Container)
 
 Vue.mixin(vantMixin)
 

@@ -60,6 +60,12 @@
       }
     },
     {
+      "path": "pages/car/PostponeRequest",
+      "style": {
+        "navigationBarTitleText": "延期申请"
+      }
+    },
+    {
       "path": "pages/lease/lease",
       "style": {
         "navigationBarTitleText": "租赁订单",
@@ -92,17 +98,17 @@
       "iconPath": "static/tabBar/driver_s.png",
       "selectedIconPath": "static/tabBar/driver.png",
       "text": "司机"
-    },{
+    }, {
       "pagePath": "pages/car/car",
       "iconPath": "static/tabBar/car_s.png",
       "selectedIconPath": "static/tabBar/car.png",
       "text": "车辆"
-    },{
+    }, {
       "pagePath": "pages/lease/lease",
       "iconPath": "static/tabBar/lease_s.png",
       "selectedIconPath": "static/tabBar/lease.png",
       "text": "订单"
-    },{
+    }, {
       "pagePath": "pages/account/index",
       "iconPath": "static/tabBar/my_s.png",
       "selectedIconPath": "static/tabBar/my.png",

@@ -8,7 +8,7 @@
     />
     <view class="flex-1 w-full overflow-hidden overflow-y-auto bg-white px-2 box-border text-sm">
       <view v-if="showEmpty" class="flex-1 bg-white">
-        <van-empty></van-empty>
+        <van-empty />
       </view>
 
       <view v-else>
@@ -31,7 +31,7 @@ import { getVehicles } from '@/api/car'
 import BackTop from '@/components/business/BackTop/BackTop.vue'
 
 export default {
-  name: 'search-input',
+  name: 'SearchInput',
   components: { BackTop },
   data() {
     return {

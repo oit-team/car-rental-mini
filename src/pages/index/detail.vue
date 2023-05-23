@@ -226,8 +226,7 @@ export default {
 
 <template>
   <page classes="w-full h-full p-3 bg-neutral-100 box-border">
-    <card-item :item="driverInfo">
-    </card-item>
+    <card-item :item="driverInfo" />
     <view class="mt-2 rounded-md">
       <!--    车辆信息 -->
       <view v-if="driverInfo.vehicleId" class="py-2">

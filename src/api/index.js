@@ -75,12 +75,14 @@ wx.onUnhandledRejection(({ reason }) => {
   if (reason instanceof ApiError) {
     console.error(reason)
 
-    if (reason.resolved) return
+    if (reason.resolved)
+      return
 
     const httpStatusCode = reason.error?.statusCode
     let msg = reason.message
 
-    if (httpStatusCode > 500) msg = '服务器出错\n请稍后重试'
+    if (httpStatusCode > 500)
+      msg = '服务器出错\n请稍后重试'
 
     // 弹出提示
     Toast.fail(msg)

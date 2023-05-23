@@ -77,6 +77,7 @@
     "big.js": "^6.2.1",
     "core-js": "^3.6.5",
     "crypto-js": "^4.1.1",
+    "dayjs": "^1.11.7",
     "flyio": "^0.6.2",
     "luch-request": "^3.0.7",
     "numeral": "^2.0.6",
@@ -104,8 +105,8 @@
     "@dcloudio/vue-cli-plugin-uni-optimize": "2.0.1-35320220729001",
     "@dcloudio/webpack-uni-mp-loader": "2.0.1-35320220729001",
     "@dcloudio/webpack-uni-pages-loader": "2.0.1-35320220729001",
-    "@oit/eslint-config-uni-app": "0.3.5-beta.0",
     "@oit/mini-program-tailwind-webpack-plugin": "^1.5.6",
+    "@uxuip/eslint-config": "^0.1.7",
     "@vue/babel-preset-app": "^5.0.8",
     "@vue/cli-plugin-babel": "~4.5.19",
     "@vue/cli-plugin-eslint": "^5.0.8",
@@ -146,9 +147,19 @@
     "extends": "@commitlint/config-conventional"
   },
   "eslintConfig": {
-    "extends": "@oit/uni-app",
+    "extends": "@uxuip",
+    "globals": {
+      "uni": "readonly",
+      "wx": "readonly"
+    },
     "rules": {
-      "vue/component-tags-order": "off"
+      "vue/component-tags-order": "off",
+      "vue/custom-event-name-casing": "off",
+      "vue/no-deprecated-slot-attribute": "off",
+      "vue/require-explicit-emits": "off",
+      "vue/component-name-in-template-casing": ["error", "kebab-case", {
+        "registeredComponentsOnly": false
+      }]
     }
   }
 }

@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'vc-icon',
+  name: 'VcIcon',
 
   props: {
     code: String,
@@ -15,9 +15,9 @@ export default {
   computed: {
     iconCode() {
       let code = this.code
-      if (/&#x.{4};/.test(this.code)) {
+      if (/&#x.{4};/.test(this.code))
         code = this.code.substring(3, 7)
-      }
+
       return code ? JSON.parse(`"\\u${code}"`) : ''
     },
   },

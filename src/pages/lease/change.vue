@@ -123,7 +123,7 @@
               type="number"
               input-align="right"
               @change="sub($event, index)"
-            ></van-field>
+            />
             <van-field
               :value="item.remarks"
               :disabled="!item.missing"
@@ -131,7 +131,7 @@
               placeholder="备注"
               label="备注"
               @change="vehicleAccessories[index].remarks = $event.detail"
-            ></van-field>
+            />
           </view>
         </view>
         <view class="shadow mt-2">
@@ -146,7 +146,7 @@
             :type="item.validator"
             :value="vehicleCertificate[item.key]"
             @change="vehicleCertificate[item.key] = $event.detail"
-          ></van-field>
+          />
         </view>
       </van-collapse-item>
       <van-collapse-item title="换车原因" name="5">
@@ -160,7 +160,7 @@
             maxlength="50"
             required
             @change="vehicleChangeInstruc = $event.detail"
-          ></van-field>
+          />
         </view>
       </van-collapse-item>
     </van-collapse>
@@ -272,7 +272,8 @@ export default {
   methods: {
     numeral,
     async getOld() {
-      if (!uni.getStorageSync('oldVehicleId')) return
+      if (!uni.getStorageSync('oldVehicleId'))
+        return
       const { body } = await getVehicleDetailed({
         vehicleId: uni.getStorageSync('oldVehicleId'),
       })
@@ -287,7 +288,8 @@ export default {
         uni.navigateTo({
           url: '/pages/lease/searchInput',
         })
-      } else {
+      }
+      else {
         uni.redirectTo({
           url: '/pages/lease/searchInput',
         })
@@ -300,7 +302,8 @@ export default {
       this.vehicleAccessories[index].missing = e.detail
     },
     async submit() {
-      if (this.vehicleChangeInstruc.length === 0) return this.$toast.fail('请填写换车原因')
+      if (this.vehicleChangeInstruc.length === 0)
+        return this.$toast.fail('请填写换车原因')
       const res = await addVehicleChangeRecords({
         leaseOrderNo: uni.getStorageSync('leaseOrderNo'), // 订单编号
         currentVehicleId: this.vehicleInfo.vehicleId, // 当前更换车辆Id
@@ -317,8 +320,8 @@ export default {
         setTimeout(() => {
           uni.navigateBack()
         }, 500)
-      } else
-        this.$toast.fail(res.head.msg)
+      }
+      else { this.$toast.fail(res.head.msg) }
     },
     sub(e, index) {
       this.vehicleAccessories[index].subtotal = e.detail
