@@ -139,7 +139,7 @@ export default {
     // 去延期申请
     goToPostpone(workCode) {
       uni.navigateTo({
-        url: `/pages/car/PostponeRequest?workCode=${workCode?.workCode}&orderCode=${workCode?.orderCode}&flowCode=${workCode?.flowCode}`,
+        url: `/pages/car/postponeRequest?workCode=${workCode?.workCode}&orderCode=${workCode?.orderCode}`,
       })
     },
     toChange() {
