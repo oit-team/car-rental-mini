@@ -79,11 +79,12 @@
     "crypto-js": "^4.1.1",
     "flyio": "^0.6.2",
     "luch-request": "^3.0.7",
+    "numeral": "^2.0.6",
     "regenerator-runtime": "^0.12.1",
     "vue": "^2.7.13",
-    "vuex": "^3.2.0",
+    "vue-demi": "^0.13.1",
     "vue-loader": "^15.10.0",
-    "vue-demi": "^0.13.1"
+    "vuex": "^3.2.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-logical-assignment-operators": "^7.20.7",

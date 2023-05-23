@@ -70,7 +70,7 @@
     {
       "path": "pages/lease/change",
       "style": {
-        "navigationBarTitleText": "退车申请"
+        "navigationBarTitleText": "新增换车记录"
       }
     },
     {
@@ -79,6 +79,11 @@
         "navigationBarTitleText": "搜索",
         "enablePullDownRefresh": true,
         "onReachBottomDistance": 10
+      }
+    },
+    {
+      "path": "pages/lease/text",
+      "style": {
       }
     }
   ],
@@ -134,6 +139,7 @@
       "van-radio": "/wxcomponents/vant/radio/index",
       "van-popup": "/wxcomponents/vant/popup/index",
       "van-steps": "/wxcomponents/vant/steps/index",
+      "van-switch": "/wxcomponents/vant/switch/index",
       "van-radio-group": "/wxcomponents/vant/radio-group/index",
       "van-datetime-picker": "/wxcomponents/vant/datetime-picker/index",
       "van-collapse-item": "/wxcomponents/vant/collapse-item/index",

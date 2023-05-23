@@ -137,9 +137,13 @@ export default {
       this.show = true
     },
     toChange() {
+      uni.setStorageSync('leaseOrderNo', this.data.orderInfo?.leaseOrderNo)
       uni.navigateTo({
         url: '/pages/lease/change',
       })
+      // uni.navigateTo({
+      //   url: `/pages/lease/change?number=${this.data.orderInfo?.leaseOrderNo}`,
+      // })
     },
   },
 }

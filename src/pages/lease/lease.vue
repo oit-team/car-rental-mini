@@ -150,6 +150,9 @@ export default {
       uni.navigateTo({
         url: `/pages/lease/${url}?id=${p.id}&type=${p.type}`,
       })
+      // uni.navigateTo({
+      //   url: '/pages/lease/text',
+      // })
     },
     // formatDate(date) {
     //   date = new Date(date)
