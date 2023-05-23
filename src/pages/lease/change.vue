@@ -12,7 +12,18 @@
     />
 
     <van-collapse v-if="vehicleInfo.vehicleId" :value="activeNames" @change="onChange">
-      <van-collapse-item title="车辆信息" name="1">
+      <van-collapse-item title="原车信息" name="1">
+        <van-cell-group :border="false">
+          <van-cell
+            v-for="item in vehicle"
+            :key="item.value"
+            :value="oldCarInfo[item.value] || '暂无'"
+            border="false"
+            :title="item.label"
+          />
+        </van-cell-group>
+      </van-collapse-item>
+      <van-collapse-item title="车辆信息" name="2">
         <van-cell-group :border="false">
           <van-cell
             v-for="item in vehicle"
@@ -23,7 +34,7 @@
           />
         </van-cell-group>
       </van-collapse-item>
-      <van-collapse-item title="验车信息" name="2">
+      <van-collapse-item title="验车信息" name="3">
         <van-cell-group :border="false">
           <view class="p-2 text-sm text-[#000]">
             车辆违章
@@ -96,7 +107,7 @@
           />
         </van-cell-group>
       </van-collapse-item>
-      <van-collapse-item title="车辆配件" name="3">
+      <van-collapse-item title="车辆配件" name="4">
         <view v-for="(item, index) in vehicleAccessories" :key="index">
           <view class="mt-2 pl-2 text-[#000]">
             {{ item.receivable }}
@@ -138,7 +149,7 @@
           ></van-field>
         </view>
       </van-collapse-item>
-      <van-collapse-item title="换车原因" name="4">
+      <van-collapse-item title="换车原因" name="5">
         <view class="shadow">
           <van-field
             :value="vehicleChangeInstruc"
@@ -162,11 +173,12 @@
 
 <script>
 import numeral from 'numeral'
+import { getVehicleDetailed } from '@/api/car'
 import { addVehicleChangeRecords } from '@/api/work'
 export default {
   data() {
     return {
-      activeNames: ['1', '2', '3', '4'],
+      activeNames: ['1', '2', '3', '4', '5'],
       vehicle: [
         {
           label: '车牌号',
@@ -227,6 +239,7 @@ export default {
       }, // 车辆配件总计
       receivables: ['车钥匙', '行驶证', '运输证', '灭火器', '脚垫', '紧急警示牌', '拖车钩', '反光背心', '千斤顶', '备胎/充气泵', '其它'],
       checked: false,
+      oldCarInfo: {},
     }
   },
   onLoad(option) {
@@ -254,9 +267,17 @@ export default {
     },
   },
   onShow() {
+    this.getOld()
   },
   methods: {
     numeral,
+    async getOld() {
+      if (!uni.getStorageSync('oldVehicleId')) return
+      const { body } = await getVehicleDetailed({
+        vehicleId: uni.getStorageSync('oldVehicleId'),
+      })
+      this.oldCarInfo = body.vehicleDetailed
+    },
     // 折叠面板
     onChange(event) {
       this.activeNames = event.detail

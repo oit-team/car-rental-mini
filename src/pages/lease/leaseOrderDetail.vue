@@ -138,11 +138,12 @@ export default {
     },
     toChange() {
       uni.setStorageSync('leaseOrderNo', this.data.orderInfo?.leaseOrderNo)
+      uni.setStorageSync('oldVehicleId', this.data.orderInfo?.vehicleId)
       uni.navigateTo({
         url: '/pages/lease/change',
       })
       // uni.navigateTo({
-      //   url: `/pages/lease/change?number=${this.data.orderInfo?.leaseOrderNo}`,
+      //   url: `/pages/lease/change?number=${this.data.vehicleInfo?.licensePlateNumber}`,
       // })
     },
   },

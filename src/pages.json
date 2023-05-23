@@ -80,11 +80,6 @@
         "enablePullDownRefresh": true,
         "onReachBottomDistance": 10
       }
-    },
-    {
-      "path": "pages/lease/text",
-      "style": {
-      }
     }
   ],
   "tabBar": {

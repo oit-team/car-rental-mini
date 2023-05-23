@@ -40,7 +40,6 @@ export default {
       showEmpty: true,
       canReload: false,
       formData: {
-
         pageNum: 1,
         pageSize: 20,
       },
