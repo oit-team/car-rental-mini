@@ -1,3 +1,159 @@
+<script>
+import numeral from 'numeral'
+import { getVehicleDetailed } from '@/api/car'
+import { addVehicleChangeRecords } from '@/api/work'
+export default {
+  data() {
+    return {
+      activeNames: ['1', '2', '3', '4', '5'],
+      vehicle: [
+        {
+          label: '车牌号',
+          value: 'licensePlateNumber',
+        },
+        {
+          label: '车架号',
+          value: 'vehicleFrameNumber',
+        },
+        {
+          label: '城市',
+          value: 'city',
+        },
+        {
+          label: '车身颜色',
+          value: 'bodyColor',
+        },
+        {
+          label: '里程数',
+          value: 'mileage',
+        },
+        {
+          label: '终止时间',
+          value: 'endTime',
+        },
+      ],
+      vehicleInfo: {},
+      licensePlateNumber: '', // 车牌号
+      vehicleChangeInstruc: '', // 换车原因
+      vehicleAccessories: [],
+      floatingFee: {
+        netReceipts: 0,
+        receivable: 0,
+        subtotal: 0,
+        remarks: '',
+      }, // 上浮
+      depreciationCharge: {
+        netReceipts: 0,
+        receivable: 0,
+        subtotal: 0,
+        remarks: '',
+      }, // 折旧
+      vehicleLossAssessment: {
+        netReceipts: 0,
+        receivable: 0,
+        subtotal: 0,
+        workingHours: '',
+      }, // 定损
+      vehicleViolation: {
+        netReceipts: 0,
+        receivable: 0,
+        subtotal: 0,
+        remarks: '',
+      }, // 车辆违章
+      vehicleCertificate: {
+        subtotal: 0,
+        remarks: '',
+      }, // 车辆配件总计
+      receivables: ['车钥匙', '行驶证', '运输证', '灭火器', '脚垫', '紧急警示牌', '拖车钩', '反光背心', '千斤顶', '备胎/充气泵', '其它'],
+      checked: false,
+      oldCarInfo: {},
+    }
+  },
+  onLoad(option) {
+    if (option.item) {
+      this.vehicleInfo = JSON.parse(option.item)
+      this.licensePlateNumber = this.vehicleInfo.licensePlateNumber
+    }
+
+    this.vehicleAccessories = this.receivables.map((item) => {
+      return {
+        receivable: item,
+        missing: false,
+        subtotal: 0,
+        remarks: '',
+      }
+    })
+  },
+  watch: {
+    vehicleAccessories: {
+      handler() {
+        this.vehicleCertificate.subtotal = this.vehicleAccessories.reduce((num, item) => num + Number(item.subtotal), 0)
+        this.vehicleCertificate.subtotal = numeral(this.vehicleCertificate.subtotal).format('0[.]00')
+      },
+      deep: true,
+    },
+  },
+  onShow() {
+    this.getOld()
+  },
+  methods: {
+    numeral,
+    async getOld() {
+      if (!uni.getStorageSync('oldVehicleId')) return
+      const { body } = await getVehicleDetailed({
+        vehicleId: uni.getStorageSync('oldVehicleId'),
+      })
+      this.oldCarInfo = body.vehicleDetailed
+    },
+    // 折叠面板
+    onChange(event) {
+      this.activeNames = event.detail
+    },
+    toSearch() {
+      if (this.licensePlateNumber) {
+        uni.navigateTo({
+          url: '/pages/lease/searchInput',
+        })
+      } else {
+        uni.redirectTo({
+          url: '/pages/lease/searchInput',
+        })
+      }
+    },
+    subtotalCount(e) {
+      this[e].subtotal = numeral(this[e].receivable - this[e].netReceipts).format('0[.]00')
+    },
+    changeSwitch(e, index) {
+      this.vehicleAccessories[index].missing = e.detail
+    },
+    async submit() {
+      if (this.vehicleChangeInstruc.length === 0) return this.$toast.fail('请填写换车原因')
+      const res = await addVehicleChangeRecords({
+        leaseOrderNo: uni.getStorageSync('leaseOrderNo'), // 订单编号
+        currentVehicleId: this.vehicleInfo.vehicleId, // 当前更换车辆Id
+        vehicleChangeInstruc: this.vehicleChangeInstruc, // 换车原因
+        vehicleInspection: {
+          vehicleAccessories: this.vehicleAccessories, // 上浮
+          vehicleLossAssessment: this.vehicleLossAssessment, // 定损
+          vehicleViolation: this.vehicleViolation, // 违章
+          depreciationCharge: this.depreciationCharge, // 折旧
+        },
+      })
+      if (res.head.status === 0) {
+        this.$toast.success('换车成功')
+        setTimeout(() => {
+          uni.navigateBack()
+        }, 500)
+      } else
+        this.$toast.fail(res.head.msg)
+    },
+    sub(e, index) {
+      this.vehicleAccessories[index].subtotal = e.detail
+    },
+  },
+}
+</script>
+
 <template>
   <page classes="bg-neutral-100 pb-12">
     <van-field
@@ -170,165 +326,6 @@
     </van-button>
   </page>
 </template>
-
-<script>
-import numeral from 'numeral'
-import { getVehicleDetailed } from '@/api/car'
-import { addVehicleChangeRecords } from '@/api/work'
-export default {
-  data() {
-    return {
-      activeNames: ['1', '2', '3', '4', '5'],
-      vehicle: [
-        {
-          label: '车牌号',
-          value: 'licensePlateNumber',
-        },
-        {
-          label: '车架号',
-          value: 'vehicleFrameNumber',
-        },
-        {
-          label: '城市',
-          value: 'city',
-        },
-        {
-          label: '车身颜色',
-          value: 'bodyColor',
-        },
-        {
-          label: '里程数',
-          value: 'mileage',
-        },
-        {
-          label: '终止时间',
-          value: 'endTime',
-        },
-      ],
-      vehicleInfo: {},
-      licensePlateNumber: '', // 车牌号
-      vehicleChangeInstruc: '', // 换车原因
-      vehicleAccessories: [],
-      floatingFee: {
-        netReceipts: 0,
-        receivable: 0,
-        subtotal: 0,
-        remarks: '',
-      }, // 上浮
-      depreciationCharge: {
-        netReceipts: 0,
-        receivable: 0,
-        subtotal: 0,
-        remarks: '',
-      }, // 折旧
-      vehicleLossAssessment: {
-        netReceipts: 0,
-        receivable: 0,
-        subtotal: 0,
-        workingHours: '',
-      }, // 定损
-      vehicleViolation: {
-        netReceipts: 0,
-        receivable: 0,
-        subtotal: 0,
-        remarks: '',
-      }, // 车辆违章
-      vehicleCertificate: {
-        subtotal: 0,
-        remarks: '',
-      }, // 车辆配件总计
-      receivables: ['车钥匙', '行驶证', '运输证', '灭火器', '脚垫', '紧急警示牌', '拖车钩', '反光背心', '千斤顶', '备胎/充气泵', '其它'],
-      checked: false,
-      oldCarInfo: {},
-    }
-  },
-  onLoad(option) {
-    if (option.item) {
-      this.vehicleInfo = JSON.parse(option.item)
-      this.licensePlateNumber = this.vehicleInfo.licensePlateNumber
-    }
-
-    this.vehicleAccessories = this.receivables.map((item) => {
-      return {
-        receivable: item,
-        missing: false,
-        subtotal: 0,
-        remarks: '',
-      }
-    })
-  },
-  watch: {
-    vehicleAccessories: {
-      handler() {
-        this.vehicleCertificate.subtotal = this.vehicleAccessories.reduce((num, item) => num + Number(item.subtotal), 0)
-        this.vehicleCertificate.subtotal = numeral(this.vehicleCertificate.subtotal).format('0[.]00')
-      },
-      deep: true,
-    },
-  },
-  onShow() {
-    this.getOld()
-  },
-  methods: {
-    numeral,
-    async getOld() {
-      if (!uni.getStorageSync('oldVehicleId'))
-        return
-      const { body } = await getVehicleDetailed({
-        vehicleId: uni.getStorageSync('oldVehicleId'),
-      })
-      this.oldCarInfo = body.vehicleDetailed
-    },
-    // 折叠面板
-    onChange(event) {
-      this.activeNames = event.detail
-    },
-    toSearch() {
-      if (this.licensePlateNumber) {
-        uni.navigateTo({
-          url: '/pages/lease/searchInput',
-        })
-      }
-      else {
-        uni.redirectTo({
-          url: '/pages/lease/searchInput',
-        })
-      }
-    },
-    subtotalCount(e) {
-      this[e].subtotal = numeral(this[e].receivable - this[e].netReceipts).format('0[.]00')
-    },
-    changeSwitch(e, index) {
-      this.vehicleAccessories[index].missing = e.detail
-    },
-    async submit() {
-      if (this.vehicleChangeInstruc.length === 0)
-        return this.$toast.fail('请填写换车原因')
-      const res = await addVehicleChangeRecords({
-        leaseOrderNo: uni.getStorageSync('leaseOrderNo'), // 订单编号
-        currentVehicleId: this.vehicleInfo.vehicleId, // 当前更换车辆Id
-        vehicleChangeInstruc: this.vehicleChangeInstruc, // 换车原因
-        vehicleInspection: {
-          vehicleAccessories: this.vehicleAccessories, // 上浮
-          vehicleLossAssessment: this.vehicleLossAssessment, // 定损
-          vehicleViolation: this.vehicleViolation, // 违章
-          depreciationCharge: this.depreciationCharge, // 折旧
-        },
-      })
-      if (res.head.status === 0) {
-        this.$toast.success('换车成功')
-        setTimeout(() => {
-          uni.navigateBack()
-        }, 500)
-      }
-      else { this.$toast.fail(res.head.msg) }
-    },
-    sub(e, index) {
-      this.vehicleAccessories[index].subtotal = e.detail
-    },
-  },
-}
-</script>
 
 <style scoped>
 
