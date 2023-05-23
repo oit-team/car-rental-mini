@@ -32,7 +32,7 @@ export default {
         t3Withholding,
         offlinePay,
       } = this.rentInspection
-      return rentReceivable - t3Withholding - offlinePay
+      return Math.floor((rentReceivable - t3Withholding - offlinePay) * 100) / 100
     },
   },
   watch: {
