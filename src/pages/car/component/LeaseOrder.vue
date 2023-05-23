@@ -33,9 +33,15 @@ export default {
             <van-tag v-if="type === 'T3'" type="primary" class="mr-2">
               {{ item.city }}
             </van-tag>
-            <van-tag plain :color="type === 'T3' ? statusColorMap[item.orderStatus] : statusColorMap[item.orderStatueName] ">
-              {{ type === 'T3' ? item.orderStatus : item.orderStatueName }}
+            <van-tag v-if="type === 'T3'" plain :color="statusColorMap[item.orderStatus] || '#888888'">
+              {{ item.orderStatus }}
             </van-tag>
+            <van-tag v-else plain :color="statusColorMap[item.orderStatueName] || '#888888'">
+              {{ item.orderStatueName }}
+            </van-tag>
+            <!--            <van-tag plain :color="type === 'T3' ? statusColorMap[item.orderStatus] : statusColorMap[item.orderStatueName]"> -->
+            <!--              {{ type === 'T3' ? item.orderStatus : item.orderStatueName }} -->
+            <!--            </van-tag> -->
           </view>
         </view>
         <view class="flex justify-between items-center leading-loose text-xs">
