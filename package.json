@@ -80,6 +80,7 @@
     "dayjs": "^1.11.7",
     "flyio": "^0.6.2",
     "luch-request": "^3.0.7",
+    "numeral": "^2.0.6",
     "regenerator-runtime": "^0.12.1",
     "vue": "^2.7.13",
     "vue-demi": "^0.13.1",

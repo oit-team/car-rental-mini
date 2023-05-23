@@ -142,7 +142,18 @@ export default {
         url: `/pages/car/PostponeRequest?workCode=${workCode?.workCode}&orderCode=${workCode?.orderCode}&flowCode=${workCode?.flowCode}`,
       })
     },
+    toChange() {
+      uni.setStorageSync('leaseOrderNo', this.data.orderInfo?.leaseOrderNo)
+      uni.setStorageSync('oldVehicleId', this.data.orderInfo?.vehicleId)
+      uni.navigateTo({
+        url: '/pages/lease/change',
+      })
+      // uni.navigateTo({
+      //   url: `/pages/lease/change?number=${this.data.vehicleInfo?.licensePlateNumber}`,
+      // })
+    },
   },
+
 }
 </script>
 
@@ -245,17 +256,20 @@ export default {
       </van-tab>
     </van-tabs>
 
-    <view class="w-full fixed bottom-0 py-2 z-20 flex justify-around items-center">
-      <van-button size="small" color="#1296db">
+    <view class="w-full fixed bottom-0 p-2 z-20 box-border grid grid-cols-4 gap-1 bg-white shadow">
+      <van-button size="small" block class="flex-1" color="#fb923c" @click="toChange()">
         换车
       </van-button>
       <van-button size="small" color="#1296db" @click="goToPostpone(workOrder[0])">
         延期
       </van-button>
-      <van-button size="small" color="#1296db">
+      <van-button size="small" block class="flex-1" color="#1296db">
+        续约
+      </van-button>
+      <van-button size="small" block class="flex-1" color="#1296db">
         续租
       </van-button>
-      <van-button size="small" color="#1296db">
+      <van-button size="small" block class="flex-1" color="#be123c">
         退车
       </van-button>
     </view>

@@ -20,3 +20,10 @@ export function getWorkFlowSteps(params) {
 export function workOrderApply(params) {
   return post('/workFlow/workFlow/workOrderApply', params)
 }
+
+/* T3租赁订单详情
+ */
+export function addVehicleChangeRecords(params) {
+  return post('/order/leaseOrder/addVehicleChangeRecords', params)
+}
+

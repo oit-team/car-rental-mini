@@ -1,6 +1,5 @@
 <script>
 import { getT3LeaseOrderInfo } from '@/api/car'
-import { getWorkOrderList } from '@/api/work'
 
 export default {
   props: {
