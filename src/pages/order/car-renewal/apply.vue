@@ -49,12 +49,14 @@ export default {
       },
     },
     'scheme.id': function (id) {
-      if (!id) return
+      if (!id)
+        return
       this.getActivityList()
       this.getOrderPreferential()
     },
     'activityId': function (id) {
-      if (!id) return
+      if (!id)
+        return
       this.getActivity()
       this.getOrderPreferential()
     },
@@ -188,8 +190,8 @@ export default {
               租金查验
             </div>
             <van-cell-group inset>
-              <van-cell title="总租金" :value="rentInspection.totalBillRent"></van-cell>
-              <van-cell title="应交租金" :value="rentInspection.rentReceivable"></van-cell>
+              <van-cell title="总租金" :value="rentInspection.totalBillRent" />
+              <van-cell title="应交租金" :value="rentInspection.rentReceivable" />
               <van-field
                 :value="rentInspection.t3Withholding"
                 required
@@ -204,7 +206,7 @@ export default {
                 input-align="right"
                 @input="rentInspection.offlinePay = +$event.detail || 0"
               />
-              <van-cell title="欠缴租金" :value="rentInspection.unpaidRent"></van-cell>
+              <van-cell title="欠缴租金" :value="rentInspection.unpaidRent" />
             </van-cell-group>
           </div>
         </van-tab>

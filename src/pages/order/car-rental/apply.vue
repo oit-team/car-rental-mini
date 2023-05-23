@@ -36,12 +36,14 @@ export default {
       },
     },
     'scheme.id': function (id) {
-      if (!id) return
+      if (!id)
+        return
       this.getActivityList()
       this.getOrderPreferential()
     },
     'activityId': function (id) {
-      if (!id) return
+      if (!id)
+        return
       this.getActivity()
       this.getOrderPreferential()
     },

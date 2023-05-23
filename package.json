@@ -154,7 +154,6 @@
       "wx": "readonly"
     },
     "rules": {
-      "vue/component-tags-order": ["error", { "order": ["script", "template", "style"] }],
       "vue/custom-event-name-casing": "off",
       "vue/no-deprecated-slot-attribute": "off",
       "vue/require-explicit-emits": "off",

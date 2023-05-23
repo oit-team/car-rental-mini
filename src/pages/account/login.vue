@@ -1,59 +1,3 @@
-<template>
-  <page classes="flex flex-col items-center">
-    <view class="width-4-5 h-full mt-24">
-      <view class="w-full flex flex-col justify-center items-center mb-10">
-        <van-image
-          width="70"
-          height="100"
-          :src="require('../../static/logo.jpg')"
-        />
-        <view class="leading-normal mt-2 text-sm text-center">
-          浪汛租车系统
-        </view>
-      </view>
-      <van-field
-        :value="username"
-        placeholder="账号"
-        left-icon="contact"
-        clearable
-        maxlength="50"
-        @change="username = $event.detail"
-      />
-      <van-field
-        :value="password"
-        left-icon="lock"
-        type="password"
-        clearable
-        maxlength="50"
-        placeholder="密码"
-        @change="password = $event.detail"
-      />
-      <view class="w-full flex justify-between gap-1 pl-3 box-border items-center">
-        <van-image
-          class="my-2"
-          width="100"
-          height="30"
-          :src="imgCode"
-          @click="getCode()"
-        />
-        <van-field
-          :value="checkCode"
-          class="flex-1"
-          center
-          clearable
-          placeholder="验证码"
-          @change="checkCode = $event.detail"
-        />
-      </view>
-      <view class="m-5" @click="login()">
-        <van-button round block type="info" native-type="submit">
-          登录
-        </van-button>
-      </view>
-    </view>
-  </page>
-</template>
-
 <script>
 import crypto from '../../utils/crypto'
 import { getCode, userLogin } from '@/api/account'
@@ -110,6 +54,62 @@ export default {
   },
 }
 </script>
+
+<template>
+  <page classes="flex flex-col items-center">
+    <view class="width-4-5 h-full mt-24">
+      <view class="w-full flex flex-col justify-center items-center mb-10">
+        <van-image
+          width="70"
+          height="100"
+          :src="require('../../static/logo.jpg')"
+        />
+        <view class="leading-normal mt-2 text-sm text-center">
+          浪汛租车系统
+        </view>
+      </view>
+      <van-field
+        :value="username"
+        placeholder="账号"
+        left-icon="contact"
+        clearable
+        maxlength="50"
+        @change="username = $event.detail"
+      />
+      <van-field
+        :value="password"
+        left-icon="lock"
+        type="password"
+        clearable
+        maxlength="50"
+        placeholder="密码"
+        @change="password = $event.detail"
+      />
+      <view class="w-full flex justify-between gap-1 pl-3 box-border items-center">
+        <van-image
+          class="my-2"
+          width="100"
+          height="30"
+          :src="imgCode"
+          @click="getCode()"
+        />
+        <van-field
+          :value="checkCode"
+          class="flex-1"
+          center
+          clearable
+          placeholder="验证码"
+          @change="checkCode = $event.detail"
+        />
+      </view>
+      <view class="m-5" @click="login()">
+        <van-button round block type="info" native-type="submit">
+          登录
+        </van-button>
+      </view>
+    </view>
+  </page>
+</template>
 
 <style scoped>
 ::v-deep .van-image {

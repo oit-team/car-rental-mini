@@ -1,12 +1,3 @@
-<template>
-  <view class="page" :class="[{ 'page-flex': flex }, classes]" :style="[{ minHeight }]">
-    <van-toast id="van-toast" />
-    <van-dialog id="van-dialog" />
-
-    <slot />
-  </view>
-</template>
-
 <script>
 import Toast from '@/wxcomponents/vant/toast/toast'
 import Dialog from '@/wxcomponents/vant/dialog/dialog'
@@ -74,6 +65,15 @@ export default {
   },
 }
 </script>
+
+<template>
+  <view class="page" :class="[{ 'page-flex': flex }, classes]" :style="[{ minHeight }]">
+    <van-toast id="van-toast" />
+    <van-dialog id="van-dialog" />
+
+    <slot />
+  </view>
+</template>
 
 <template>
   <view class="container" :class="[{ 'container-flex': flex }, classes]" :style="[{ minHeight }]">

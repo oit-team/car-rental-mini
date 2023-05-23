@@ -1,9 +1,3 @@
-<template>
-  <view class="w-full h-full bg-white p-3">
-    <view />
-  </view>
-</template>
-
 <script>
 export default {
   components: {},
@@ -17,6 +11,12 @@ export default {
   methods: {},
 }
 </script>
+
+<template>
+  <view class="w-full h-full bg-white p-3">
+    <view />
+  </view>
+</template>
 
 <template>
   <view class="w-full h-full bg-white p-3">
