@@ -84,7 +84,7 @@
       }
     },
     {
-      "path": "pages/car/PostponeRequest",
+      "path": "pages/car/postponeRequest",
       "style": {
         "navigationBarTitleText": "延期申请"
       }

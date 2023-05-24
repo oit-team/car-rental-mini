@@ -47,7 +47,7 @@ export default {
       return this.dayRent * this.extensionDay
     },
     unpaidRent() {
-      return (this.rentReceivable - this.t3Withholding - this.offlinePay).toFixed(2)
+      return (this.rentReceivable - this.t3Withholding - this.offlinePay).toFixed(2) || 0
     },
     extensionEndTimeForMat() {
       return this.extensionEndTime ? dayjs(new Date(this.extensionEndTime)).format('YYYY-MM-DD') : ''
@@ -113,7 +113,7 @@ export default {
 
 <template>
   <page classes="relative min-h-screen bg-neutral-100 box-border pb-12">
-    <view class="px-2">
+    <view v-if="data.leaseOrder" class="px-2">
       <view class="my-2 text-sm text-[#777]">
         订单信息
       </view>
@@ -232,5 +232,6 @@ export default {
         </view>
       </van-cell-group>
     </view>
+    <van-empty v-else class="w-full h-full" description="暂无数据" />
   </page>
 </template>
