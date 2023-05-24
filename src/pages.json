@@ -36,13 +36,17 @@
     {
       "path": "pages/car/car",
       "style": {
-        "navigationBarTitleText": "车辆列表"
+        "navigationBarTitleText": "车辆列表",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 10
       }
     },
     {
       "path": "pages/car/detail",
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": true,
+        "onReachBottomDistance": 10
       }
     },
     {

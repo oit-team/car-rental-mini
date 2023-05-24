@@ -70,8 +70,14 @@ export default {
     this.id = option.id
   },
   async onPullDownRefresh() {
-    this.formData.pageNum = 1
-    await this.getData()
+    this.operationalFormData.pageNum = 1
+    this.violationFormData.pageNum = 1
+    this.leaseOrderFormData.pageNum = 1
+    this.leaseOrderT3FormData.pageNum = 1
+    await this.getInfo()
+    await this.getT3OperationalDataList()
+    await this.getLeaseOrderList()
+    await this.getT3LeaseOrderList()
     uni.stopPullDownRefresh()
   },
   async onReachBottom() {
