@@ -1,17 +1,17 @@
 import { warn } from '@/utils/warning'
 
-let containerCache = null
+let pageCache = null
 
-function checkContainer() {
-  const container = this.$children[0]
+function checkpage() {
+  const page = this.$children[0]
 
-  if (containerCache === container)
+  if (pageCache === page)
     return
 
-  containerCache = container
+  pageCache = page
 
-  if (container?.$options?.name !== 'container')
-    warn(`首个元素必须是 <container> 页面 ${this.__route__}`)
+  if (page?.$options?.name !== 'page')
+    warn(`首个元素必须是 <page> 在页面 ${this.__route__}`)
 }
 
 const noop = () => {}
@@ -19,9 +19,9 @@ const noop = () => {}
 export default {
   mounted() {
     if (this.mpType === 'page')
-      checkContainer.call(this)
+      checkpage.call(this)
   },
-  // 初始化onShow,onHide事件，以便container组件能正常添加挂载
+  // 初始化onShow,onHide事件，以便page组件能正常添加挂载
   onShow: noop,
   onHide: noop,
   methods: {
