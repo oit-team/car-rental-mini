@@ -170,7 +170,7 @@ export default {
 </script>
 
 <template>
-  <page>
+  <page classes="bg-neutral-100">
     <van-tabs
       :active="active"
       color="#1296db"

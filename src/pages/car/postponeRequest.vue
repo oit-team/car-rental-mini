@@ -114,12 +114,12 @@ export default {
 <template>
   <page classes="relative min-h-screen bg-neutral-100 box-border pb-12">
     <view v-if="data.leaseOrder" class="px-2">
-      <view class="my-2 text-sm text-[#777]">
+      <view class="py-2 text-sm text-[#777]">
         订单信息
       </view>
       <van-cell-group>
         <van-cell
-          v-for="item, index in orderInfo"
+          v-for="(item, index) in orderInfo"
           :key="index"
           :title="item.label"
           :value="data.leaseOrder[item.prop] || '暂无'"

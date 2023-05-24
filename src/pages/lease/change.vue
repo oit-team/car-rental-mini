@@ -148,7 +148,9 @@ export default {
             },
           })
           if (res.head.status === 0) {
-            this.$toast.success('换车成功')
+            this.$toast.success('申请成功')
+            uni.removeStorageSync('leaseOrderNo')
+            uni.removeStorageSync('oldVehicleId')
             setTimeout(() => {
               uni.navigateBack()
             }, 500)
@@ -328,17 +330,21 @@ export default {
           />
         </view>
       </van-collapse-item>
-      <van-collapse-item title="换车原因" name="5">
+      <van-collapse-item name="5">
+        <template #title>
+          <span class="text-[#ff0000]">
+            *
+          </span>
+          换车原因
+        </template>
         <view class="shadow">
           <van-field
             :value="vehicleChangeInstruc"
             type="textarea"
             show-word-limit
-            label="换车原因"
             :border="false"
             placeholder="请填写换车原因"
             maxlength="50"
-            required
             @change="vehicleChangeInstruc = $event.detail"
           />
         </view>

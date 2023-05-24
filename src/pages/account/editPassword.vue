@@ -39,14 +39,16 @@ export default {
         newPassWord: crypto.encrypt(this.newPassword),
       })
       this.$toast.success('修改成功')
-      uni.navigateBack()
+      setTimeout(() => {
+        uni.navigateBack()
+      }, 500)
     },
   },
 }
 </script>
 
 <template>
-  <container classes="w-full h-full bg-white p-3">
+  <page classes="w-full h-full bg-white p-3">
     <van-field
       v-model="oldPassowrd"
       required
@@ -87,7 +89,7 @@ export default {
         </van-button>
       </view>
     </view>
-  </container>
+  </page>
 </template>
 
 <style lang="scss" scoped>
