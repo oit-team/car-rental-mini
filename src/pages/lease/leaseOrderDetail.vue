@@ -148,9 +148,11 @@ export default {
       uni.navigateTo({
         url: '/pages/lease/change',
       })
-      // uni.navigateTo({
-      //   url: `/pages/lease/change?number=${this.data.vehicleInfo?.licensePlateNumber}`,
-      // })
+    },
+    toReturn() {
+      uni.navigateTo({
+        url: `/pages/lease/return?vid=${this.data.orderInfo?.vehicleId}&did=${this.data.orderInfo?.driverId}&no=${this.data.orderInfo?.leaseOrderNo}&time=${this.data.orderInfo?.startTime}`,
+      })
     },
   },
 
@@ -161,6 +163,7 @@ export default {
   <page classes="relative min-h-screen bg-neutral-100 box-border pb-12">
     <van-tabs
       :active="active"
+      color="#1296db"
       sticky
       @change="active = $event.detail.name"
     >
@@ -255,20 +258,45 @@ export default {
       </van-tab>
     </van-tabs>
 
-    <view class="w-full fixed bottom-0 p-2 z-20 box-border grid grid-cols-5 gap-1 bg-white shadow">
-      <van-button size="small" block class="flex-1" color="#fb923c" @click="toChange()">
+    <view class="w-full fixed bottom-0 p-2 z-20 box-border grid grid-cols-4 gap-1 bg-white shadow">
+      <van-button
+        size="small"
+        block
+        class="flex-1"
+        color="#fb923c"
+        :disabled="data.orderInfo.orderStatue !== 1"
+        @click="toChange()"
+      >
         换车
       </van-button>
-      <van-button size="small" block class="flex-1" color="#1296db" @click="goToPostpone(workOrder[0])">
+      <van-button
+        size="small"
+        block
+        class="flex-1"
+        color="#1296db"
+        :disabled="data.orderInfo.orderStatue !== 1"
+        @click="goToPostpone(workOrder[0])"
+      >
         延期
       </van-button>
-      <van-button size="small" block class="flex-1" color="#1296db">
-        续约
-      </van-button>
-      <van-button size="small" block class="flex-1" color="#1296db" @click="uni.navigateTo({ url: `/pages/order/car-renewal/apply?orderNo=${data.orderInfo.leaseOrderNo}` })">
+      <van-button
+        size="small"
+        block
+        class="flex-1"
+        color="#1296db"
+        :disabled="!(data.orderInfo.orderStatue === 1 || data.orderInfo.orderStatue === 2)"
+        @click="uni.navigateTo({ url: `/pages/order/car-renewal/apply?orderNo=${data.orderInfo.leaseOrderNo}` })"
+      >
         续租
       </van-button>
-      <van-button size="small" block class="flex-1" color="#be123c">
+      <van-button
+        size="small"
+        block
+        class="flex-1"
+        color="#be123c"
+        :disabled="!(data.orderInfo.orderStatue === 1 || data.orderInfo.orderStatue === 2)"
+        @click="toReturn"
+      >
         退车
       </van-button>
     </view>

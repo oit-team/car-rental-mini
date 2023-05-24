@@ -110,6 +110,12 @@
         "enablePullDownRefresh": true,
         "onReachBottomDistance": 10
       }
+    },
+    {
+      "path": "pages/lease/return",
+      "style": {
+        "navigationBarTitleText": "退车申请"
+      }
     }
   ],
   "tabBar": {
