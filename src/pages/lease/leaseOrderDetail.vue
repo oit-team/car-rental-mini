@@ -3,10 +3,6 @@ import { getLeaseOrderInfo } from '@/api/car'
 import { getWorkFlowSteps, getWorkOrderList } from '@/api/work'
 
 export default {
-  props: {
-    id: String,
-    type: String,
-  },
   data() {
     return {
       driverInfo: [
@@ -95,6 +91,14 @@ export default {
       show: false,
       steps: [],
       nowDetailEmpty: true,
+      id: '',
+      type: '',
+    }
+  },
+  onLoad(option) {
+    if (option) {
+      this.id = option.id
+      this.type = option.type
     }
   },
   async onShow() {
@@ -116,10 +120,11 @@ export default {
       this.workOrder = body.resultList
       this.workOrderEmpty = body.resultList?.length === 0
     },
-    async getDetail(wCode, fCode) {
+    async getDetail(item) {
+      this.nowDetail = { ...item }
       const { body } = await getWorkFlowSteps({
-        workCode: wCode,
-        flowCode: fCode,
+        workCode: item.workCode,
+        flowCode: item.flowCode,
       })
 
       if (body.workFlowSteps) {
@@ -228,7 +233,7 @@ export default {
               v-for="item in workOrder"
               :key="item.workCode"
               class="p-2 leading-loose shadow rounded-md mb-2 bg-white text-xs"
-              @click="getDetail(item.workCode, item.flowCode)"
+              @click="getDetail(item)"
             >
               <view class="flex place-content-between">
                 <view>
@@ -312,7 +317,17 @@ export default {
         <view v-if="nowDetailEmpty">
           <van-empty />
         </view>
-        <view v-else class="flex-1 overflow-hidden overflow-y-auto">
+        <view v-else class="flex-1 overflow-hidden overflow-y-auto p-2">
+          <view class="mb-2 text-sm p-2">
+            <view class="flex place-content-between">
+              <span>发起人：{{ nowDetail.createUserName }}</span>
+              <span>{{ nowDetail.city }} </span>
+            </view>
+            <view class="flex place-content-between mt-2">
+              <span>发起时间：{{ nowDetail.createDate }}</span>
+            </view>
+          </view>
+          <van-divider custom-style="{margin: 0;}" />
           <van-steps
             :steps="steps"
             :active="0"

@@ -2,10 +2,6 @@
 import { getT3LeaseOrderInfo } from '@/api/car'
 
 export default {
-  props: {
-    id: String,
-    type: String,
-  },
   data() {
     return {
       list: [
@@ -93,6 +89,14 @@ export default {
         },
       ],
       data: {},
+      id: '',
+      type: '',
+    }
+  },
+  onLoad(option) {
+    if (option) {
+      this.id = option.id
+      this.type = option.type
     }
   },
   onShow() {
