@@ -12,6 +12,7 @@ export default new Vuex.Store({
 
   state: {
     userInfo: {},
+    userLoginPromise: null,
   },
 
   getters: {
@@ -39,8 +40,8 @@ export default new Vuex.Store({
       }
     },
     async updateUserInfo(ctx) {
-      ctx.state.userPromise = getUserToken()
-      const res = await ctx.state.userPromise
+      ctx.state.userLoginPromise = getUserToken()
+      const res = await ctx.state.userLoginPromise
       ctx.commit('setUserInfo', res.body)
       setToken(res.body.accessToken)
     },

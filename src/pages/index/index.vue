@@ -29,20 +29,14 @@ export default {
     },
   },
   watch: {
-    logged() {
-      this.logged && this.getData()
-      if (!this.logged) {
-        uni.reLaunch({
-          url: '/pages/account/login',
-        })
-      }
-    },
   },
   onLoad() {
   },
-  onShow() {
+  async onShow() {
+    await this.$store.state.userLoginPromise
+
     this.formData.pageNum = 1
-    this.logged && this.getData()
+    this.logged && await this.getData()
   },
   async onPullDownRefresh() {
     this.formData.pageNum = 1
