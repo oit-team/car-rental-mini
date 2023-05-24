@@ -10,7 +10,7 @@ function checkpage() {
 
   pageCache = page
 
-  if (page?.$options?.name !== 'page')
+  if (page?.$options?.name !== 'Page')
     warn(`首个元素必须是 <page> 在页面 ${this.__route__}`)
 }
 
