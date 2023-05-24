@@ -131,24 +131,32 @@ export default {
     async submit() {
       if (this.vehicleChangeInstruc.length === 0)
         return this.$toast.fail('请填写换车原因')
-      const res = await addVehicleChangeRecords({
-        leaseOrderNo: uni.getStorageSync('leaseOrderNo'), // 订单编号
-        currentVehicleId: this.vehicleInfo.vehicleId, // 当前更换车辆Id
-        vehicleChangeInstruc: this.vehicleChangeInstruc, // 换车原因
-        vehicleInspection: {
-          vehicleAccessories: this.vehicleAccessories, // 上浮
-          vehicleLossAssessment: this.vehicleLossAssessment, // 定损
-          vehicleViolation: this.vehicleViolation, // 违章
-          depreciationCharge: this.depreciationCharge, // 折旧
-        },
+      this.$dialog.confirm({
+        title: '提示',
+        message: '确定提交吗？',
       })
-      if (res.head.status === 0) {
-        this.$toast.success('换车成功')
-        setTimeout(() => {
-          uni.navigateBack()
-        }, 500)
-      }
-      else { this.$toast.fail(res.head.msg) }
+        .then(async () => {
+          const res = await addVehicleChangeRecords({
+            leaseOrderNo: uni.getStorageSync('leaseOrderNo'), // 订单编号
+            currentVehicleId: this.vehicleInfo.vehicleId, // 当前更换车辆Id
+            vehicleChangeInstruc: this.vehicleChangeInstruc, // 换车原因
+            vehicleInspection: {
+              vehicleAccessories: this.vehicleAccessories, // 上浮
+              vehicleLossAssessment: this.vehicleLossAssessment, // 定损
+              vehicleViolation: this.vehicleViolation, // 违章
+              depreciationCharge: this.depreciationCharge, // 折旧
+            },
+          })
+          if (res.head.status === 0) {
+            this.$toast.success('换车成功')
+            setTimeout(() => {
+              uni.navigateBack()
+            }, 500)
+          }
+          else {
+            this.$toast.fail(res.head.msg)
+          }
+        })
     },
     sub(e, index) {
       this.vehicleAccessories[index].subtotal = e.detail
@@ -177,7 +185,7 @@ export default {
             v-for="item in vehicle"
             :key="item.value"
             :value="oldCarInfo[item.value] || '暂无'"
-            border="false"
+            :border="false"
             :title="item.label"
           />
         </van-cell-group>
@@ -188,14 +196,14 @@ export default {
             v-for="item in vehicle"
             :key="item.value"
             :value="vehicleInfo[item.value] || '暂无'"
-            border="false"
+            :border="false"
             :title="item.label"
           />
         </van-cell-group>
       </van-collapse-item>
       <van-collapse-item title="验车信息" name="3">
         <van-cell-group :border="false">
-          <view class="p-2 text-sm text-[#000]">
+          <view class="p-2 text-sm text-[#777]">
             车辆违章
           </view>
           <van-field
@@ -210,9 +218,10 @@ export default {
             :label="item.name"
             :type="item.validator"
             input-align="right"
+            :border="false"
             @change="vehicleViolation[item.key] = $event.detail, subtotalCount('vehicleViolation')"
           />
-          <view class="p-2 text-sm text-[#000]">
+          <view class="p-2 text-sm text-[#777]">
             上浮费
           </view>
           <van-field
@@ -227,9 +236,10 @@ export default {
             :label="item.name"
             :type="item.validator"
             input-align="right"
+            :border="false"
             @change="floatingFee[item.key] = $event.detail, subtotalCount('floatingFee')"
           />
-          <view class="p-2 text-sm text-[#000]">
+          <view class="p-2 text-sm text-[#777]">
             折旧费
           </view>
           <van-field
@@ -243,10 +253,11 @@ export default {
             :value="depreciationCharge[item.key]"
             :label="item.name"
             input-align="right"
+            :border="false"
             :type="item.validator"
             @change="depreciationCharge[item.key] = $event.detail, subtotalCount('depreciationCharge')"
           />
-          <view class="p-2 text-sm text-[#000]">
+          <view class="p-2 text-sm text-[#777]">
             车辆定损
           </view>
           <van-field
@@ -261,6 +272,7 @@ export default {
             :value="vehicleLossAssessment[item.key]"
             :label="item.name"
             :type="item.validator"
+            :border="false"
             input-align="right"
             @change="vehicleLossAssessment[item.key] = $event.detail, subtotalCount('vehicleLossAssessment')"
           />
@@ -268,12 +280,17 @@ export default {
       </van-collapse-item>
       <van-collapse-item title="车辆配件" name="4">
         <view v-for="(item, index) in vehicleAccessories" :key="index">
-          <view class="mt-2 pl-2 text-[#000]">
+          <view class="p-2 text-sm text-[#777]">
             {{ item.receivable }}
           </view>
           <view>
             <van-cell title="是否丢失" custom-class="!px-4 !py-2 !flex items-center">
-              <van-switch :checked="item.missing" size="20px" @change="changeSwitch($event, index)" />
+              <van-switch
+                :checked="item.missing"
+                :border="false"
+                size="20px"
+                @change="changeSwitch($event, index)"
+              />
             </van-cell>
             <van-field
               :value="item.subtotal"
@@ -281,6 +298,7 @@ export default {
               :disabled="!item.missing"
               type="number"
               input-align="right"
+              :border="false"
               @change="sub($event, index)"
             />
             <van-field
@@ -289,6 +307,7 @@ export default {
               input-align="right"
               placeholder="备注"
               label="备注"
+              :border="false"
               @change="vehicleAccessories[index].remarks = $event.detail"
             />
           </view>
@@ -302,6 +321,7 @@ export default {
             :key="item.name"
             :label="item.name"
             input-align="right"
+            :border="false"
             :type="item.validator"
             :value="vehicleCertificate[item.key]"
             @change="vehicleCertificate[item.key] = $event.detail"
@@ -315,6 +335,7 @@ export default {
             type="textarea"
             show-word-limit
             label="换车原因"
+            :border="false"
             placeholder="请填写换车原因"
             maxlength="50"
             required
@@ -330,6 +351,8 @@ export default {
   </page>
 </template>
 
-<style scoped>
-
+<style lang="scss" scoped>
+::v-deep .van-field__label {
+  color: #323233;
+}
 </style>
