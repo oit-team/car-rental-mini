@@ -9,7 +9,7 @@ export default {
     // 车辆信息
     vehicle: {},
     // 方案
-    schemeTypeId: 1,
+    schemeTypeId: 0,
     scheme: {},
     schemeList: [],
     // 活动
@@ -188,10 +188,10 @@ export default {
               <van-cell title="方案类型">
                 <van-radio-group :value="schemeTypeId" @change="schemeTypeId = $event.detail">
                   <div class="flex gap-3 justify-end">
-                    <van-radio :name="1">
+                    <van-radio :name="0">
                       自营
                     </van-radio>
-                    <van-radio :name="2">
+                    <van-radio :name="1">
                       T3
                     </van-radio>
                   </div>

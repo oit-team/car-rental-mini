@@ -205,7 +205,7 @@ export default {
       </van-collapse-item>
       <van-collapse-item title="验车信息" name="3">
         <van-cell-group :border="false">
-          <view class="p-2 text-sm text-[#777]">
+          <view class="p-2 text-[#000] font-semibold">
             车辆违章
           </view>
           <van-field
@@ -223,7 +223,7 @@ export default {
             :border="false"
             @change="vehicleViolation[item.key] = $event.detail, subtotalCount('vehicleViolation')"
           />
-          <view class="p-2 text-sm text-[#777]">
+          <view class="p-2 text-sm text-[#000] font-semibold">
             上浮费
           </view>
           <van-field
@@ -241,7 +241,7 @@ export default {
             :border="false"
             @change="floatingFee[item.key] = $event.detail, subtotalCount('floatingFee')"
           />
-          <view class="p-2 text-sm text-[#777]">
+          <view class="p-2 text-sm text-[#000] font-semibold">
             折旧费
           </view>
           <van-field
@@ -259,7 +259,7 @@ export default {
             :type="item.validator"
             @change="depreciationCharge[item.key] = $event.detail, subtotalCount('depreciationCharge')"
           />
-          <view class="p-2 text-sm text-[#777]">
+          <view class="p-2 text-sm text-[#000] font-semibold">
             车辆定损
           </view>
           <van-field
@@ -282,7 +282,7 @@ export default {
       </van-collapse-item>
       <van-collapse-item title="车辆配件" name="4">
         <view v-for="(item, index) in vehicleAccessories" :key="index">
-          <view class="p-2 text-sm text-[#777]">
+          <view class="p-2 text-sm text-[#000] font-semibold">
             {{ item.receivable }}
           </view>
           <view>
