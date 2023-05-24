@@ -227,6 +227,12 @@ export default {
     <!--    T3 -->
     <search-popup :show="showFilterT3" type="T3" @close="showFilterT3 = false" @filter="filterT3" />
 
+    <view class="fixed bottom-16 right-4">
+      <view class="bg-primary w-8 h-8 backTop rounded-1/2 flex place-content-center" @click="uni.navigateTo({ url: '/pages/order/car-rental/apply' })">
+        <van-icon name="plus" color="#fff" />
+      </view>
+    </view>
+
     <back-top />
   </page>
 </template>

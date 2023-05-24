@@ -24,6 +24,7 @@ Vue.prototype.uni = uni
 Vue.prototype.$toast = Toast
 Vue.prototype.$dialog = Dialog
 Vue.prototype.$loading = promiseLoading
+Vue.prototype.$log = console.log
 
 Vue.config.productionTip = false
 

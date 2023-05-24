@@ -1,7 +1,3 @@
-<template>
-  <van-icon class="vc-back" :style="[position]" name="arrow-left" size="18" @click="uni.navigateBack()" />
-</template>
-
 <script>
 export default {
   props: {
@@ -28,6 +24,10 @@ export default {
   },
 }
 </script>
+
+<template>
+  <van-icon class="vc-back" :style="[position]" name="arrow-left" size="18" @click="uni.navigateBack()" />
+</template>
 
 <style>
 .vc-back {

@@ -60,6 +60,30 @@
       }
     },
     {
+      "path": "pages/choose/driver",
+      "style": {
+        "navigationBarTitleText": "选择司机"
+      }
+    },
+    {
+      "path": "pages/choose/vehicle",
+      "style": {
+        "navigationBarTitleText": "选择车辆"
+      }
+    },
+    {
+      "path": "pages/order/car-rental/apply",
+      "style": {
+        "navigationBarTitleText": "租车申请"
+      }
+    },
+    {
+      "path": "pages/order/car-renewal/apply",
+      "style": {
+        "navigationBarTitleText": "续租申请"
+      }
+    },
+    {
       "path": "pages/car/postponeRequest",
       "style": {
         "navigationBarTitleText": "延期申请"
