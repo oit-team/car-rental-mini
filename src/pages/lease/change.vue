@@ -148,7 +148,9 @@ export default {
             },
           })
           if (res.head.status === 0) {
-            this.$toast.success('换车成功')
+            this.$toast.success('申请成功')
+            uni.removeStorageSync('leaseOrderNo')
+            uni.removeStorageSync('oldVehicleId')
             setTimeout(() => {
               uni.navigateBack()
             }, 500)
@@ -203,7 +205,7 @@ export default {
       </van-collapse-item>
       <van-collapse-item title="验车信息" name="3">
         <van-cell-group :border="false">
-          <view class="p-2 text-sm text-[#777]">
+          <view class="p-2 text-[#000] font-semibold">
             车辆违章
           </view>
           <van-field
@@ -221,7 +223,7 @@ export default {
             :border="false"
             @change="vehicleViolation[item.key] = $event.detail, subtotalCount('vehicleViolation')"
           />
-          <view class="p-2 text-sm text-[#777]">
+          <view class="p-2 text-sm text-[#000] font-semibold">
             上浮费
           </view>
           <van-field
@@ -239,7 +241,7 @@ export default {
             :border="false"
             @change="floatingFee[item.key] = $event.detail, subtotalCount('floatingFee')"
           />
-          <view class="p-2 text-sm text-[#777]">
+          <view class="p-2 text-sm text-[#000] font-semibold">
             折旧费
           </view>
           <van-field
@@ -257,7 +259,7 @@ export default {
             :type="item.validator"
             @change="depreciationCharge[item.key] = $event.detail, subtotalCount('depreciationCharge')"
           />
-          <view class="p-2 text-sm text-[#777]">
+          <view class="p-2 text-sm text-[#000] font-semibold">
             车辆定损
           </view>
           <van-field
@@ -280,7 +282,7 @@ export default {
       </van-collapse-item>
       <van-collapse-item title="车辆配件" name="4">
         <view v-for="(item, index) in vehicleAccessories" :key="index">
-          <view class="p-2 text-sm text-[#777]">
+          <view class="p-2 text-sm text-[#000] font-semibold">
             {{ item.receivable }}
           </view>
           <view>
@@ -328,17 +330,21 @@ export default {
           />
         </view>
       </van-collapse-item>
-      <van-collapse-item title="换车原因" name="5">
+      <van-collapse-item name="5">
+        <template #title>
+          <span class="text-[#ff0000]">
+            *
+          </span>
+          换车原因
+        </template>
         <view class="shadow">
           <van-field
             :value="vehicleChangeInstruc"
             type="textarea"
             show-word-limit
-            label="换车原因"
             :border="false"
             placeholder="请填写换车原因"
             maxlength="50"
-            required
             @change="vehicleChangeInstruc = $event.detail"
           />
         </view>

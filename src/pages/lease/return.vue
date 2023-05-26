@@ -107,11 +107,11 @@ export default {
       })
         .then(async () => {
           await workOrderApply({
-            workCode: '',
+            workCode: this.params.leaseOrderNo || '',
             flowCode: 'CAR_RETURN',
             params: { ...this.params },
           })
-          this.$toast.success('成功')
+          this.$toast.success('申请成功')
           setTimeout(() => {
             uni.navigateBack()
           }, 500)
@@ -123,7 +123,7 @@ export default {
 
 <template>
   <page classes="bg-neutral-100 p-2 box-border text-sm">
-    <view class="p-2 text-sm text-[#000] underline underline-offset-6 decoration-solid decoration-[#1296db]">
+    <view class="text-sm text-[#777]">
       车辆信息
     </view>
     <van-cell-group :border="false">
@@ -131,12 +131,11 @@ export default {
         v-for="item in vehicle"
         :key="item.value"
         :value="carInfo[item.value] || '暂无'"
-        :border="false"
         :title="item.label"
       />
     </van-cell-group>
 
-    <view class="p-2 text-sm text-[#000] underline underline-offset-6 decoration-solid decoration-[#1296db]">
+    <view class=" text-sm text-[#777]">
       退车信息
     </view>
     <view>
@@ -190,7 +189,7 @@ export default {
         />
       </van-cell-group>
     </view>
-    <van-button block color="#1296db" class="mt-2" @click="submit">
+    <van-button block color="#1296db" class="block mt-2" @click="submit">
       提交
     </van-button>
 

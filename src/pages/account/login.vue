@@ -15,6 +15,7 @@ export default {
   onLoad() {
   },
   onShow() {
+    uni.hideHomeButton()
     this.getCode()
   },
   methods: {
@@ -22,8 +23,10 @@ export default {
       const res = await getCode({}, {
         responseType: 'arraybuffer',
       })
-      if (res)
+      if (res) {
         this.imgCode = `data:image/png;base64,${uni.arrayBufferToBase64(res)}`
+        this.checkCode = ''
+      }
     },
 
     async login() {

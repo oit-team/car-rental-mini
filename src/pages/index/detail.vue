@@ -70,8 +70,14 @@ export default {
     this.id = option.id
   },
   async onPullDownRefresh() {
-    this.formData.pageNum = 1
-    await this.getData()
+    this.operationalFormData.pageNum = 1
+    this.violationFormData.pageNum = 1
+    this.leaseOrderFormData.pageNum = 1
+    this.leaseOrderT3FormData.pageNum = 1
+    await this.getInfo()
+    await this.getT3OperationalDataList()
+    await this.getLeaseOrderList()
+    await this.getT3LeaseOrderList()
     uni.stopPullDownRefresh()
   },
   async onReachBottom() {
@@ -83,11 +89,11 @@ export default {
       this.violationFormData.pageNum++
       await this.getViolationInfoReload()
     }
-    if (this.active === 4 && this.orderActive === 1) {
+    if (this.active === 4) {
       this.leaseOrderFormData.pageNum++
       await this.getLeaseOrderListReload()
     }
-    if (this.active === 4 && this.orderActive === 2) {
+    if (this.active === 5) {
       this.leaseOrderT3FormData.pageNum++
       await this.getT3LeaseOrderListReload()
     }
@@ -214,10 +220,17 @@ export default {
     orderChange(e) {
       this.orderActive = e.detail.name
     },
+    // 订单详情
     toDetail(p) {
       const url = p.type === 'T3' ? 'leaseOrderT3Detail' : 'leaseOrderDetail'
       uni.navigateTo({
         url: `/pages/lease/${url}?id=${p.id}&type=${p.type}`,
+      })
+    },
+    // 跳转车辆详情
+    toVehicle() {
+      uni.navigateTo({
+        url: `/pages/car/detail?id=${this.driverInfo.vehicleId}`,
       })
     },
   },
@@ -229,12 +242,17 @@ export default {
     <card-item :item="driverInfo" />
     <view class="mt-2 rounded-md">
       <!--    车辆信息 -->
-      <view v-if="driverInfo.vehicleId" class="py-2">
+      <view v-if="driverInfo.vehicleId" class="py-2" @click="toVehicle">
         <card>
           <template #title-left>
             <view class="flex items-center">
               <view class="border-l-2 border-sky-500 mr-1 h-10px border-solid" />
               当前签约车辆
+            </view>
+          </template>
+          <template #title-right>
+            <view class="flex">
+              <van-icon name="arrow" />
             </view>
           </template>
           <template #card-content>
@@ -304,41 +322,29 @@ export default {
               <van-empty description="暂无数据" />
             </view>
           </van-tab>
-          <van-tab title="租赁订单" :name="4">
-            <view class="bg-white">
-              <van-tabs
-                :active="orderActive"
-                color="#1296db"
-                :ellipsis="false"
-                line-width="100"
-                @change="orderChange"
-              >
-                <van-tab title="自营" :name="1">
-                  <view
-                    v-if="leaseOrderEmpty"
-                    class="bg-white"
-                  >
-                    <van-empty description="暂无数据" />
-                  </view>
-                  <view v-if="!leaseOrderEmpty" class="bg-white p-2">
-                    <view v-for="(item, index) in leaseOrderList" :key="index">
-                      <lease-order :item="item" type="my" @click-event="toDetail" />
-                    </view>
-                    <scroll-btm :can-reload="leaseOrderCanReLoad" />
-                  </view>
-                </van-tab>
-                <van-tab title="T3" :name="2">
-                  <view v-if="leaseOrderT3Empty" class="bg-white">
-                    <van-empty description="暂无数据" />
-                  </view>
-                  <view v-if="!leaseOrderT3Empty" class="bg-white p-2">
-                    <view v-for="(item, index) in leaseOrderListT3" :key="index">
-                      <lease-order :list="item" type="T3" @click-event="toDetail" />
-                    </view>
-                    <scroll-btm :can-reload="leaseOrderT3CanReLoad" />
-                  </view>
-                </van-tab>
-              </van-tabs>
+          <van-tab title="自营订单" :name="4">
+            <view
+              v-if="leaseOrderEmpty"
+              class="bg-white"
+            >
+              <van-empty description="暂无数据" />
+            </view>
+            <view v-if="!leaseOrderEmpty" class="bg-white p-2">
+              <view v-for="(item, index) in leaseOrderList" :key="index">
+                <lease-order :item="item" type="my" @click-event="toDetail" />
+              </view>
+              <scroll-btm :can-reload="leaseOrderCanReLoad" />
+            </view>
+          </van-tab>
+          <van-tab title="T3订单" :name="5">
+            <view v-if="leaseOrderT3Empty" class="bg-white">
+              <van-empty description="暂无数据" />
+            </view>
+            <view v-if="!leaseOrderT3Empty" class="bg-white p-2">
+              <view v-for="(item, index) in leaseOrderListT3" :key="index">
+                <lease-order :list="item" type="T3" @click-event="toDetail" />
+              </view>
+              <scroll-btm :can-reload="leaseOrderT3CanReLoad" />
             </view>
           </van-tab>
           <!--          <van-tab title="其他信息" name="4"> -->
