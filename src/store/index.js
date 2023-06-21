@@ -44,6 +44,7 @@ export default new Vuex.Store({
       const res = await ctx.state.userLoginPromise
       ctx.commit('setUserInfo', res.body)
       setToken(res.body.accessToken)
+      uni.setStorageSync('userId', res.body.userId)
     },
   },
 })

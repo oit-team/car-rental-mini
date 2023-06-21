@@ -154,6 +154,8 @@
       "wx": "readonly"
     },
     "rules": {
+      "no-debugger": "off",
+      "no-restricted-syntax": "off",
       "vue/custom-event-name-casing": "off",
       "vue/no-deprecated-slot-attribute": "off",
       "vue/require-explicit-emits": "off",

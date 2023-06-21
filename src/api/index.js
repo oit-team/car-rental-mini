@@ -69,6 +69,33 @@ export function post(url, data = {}, config = {}) {
     .then(res => res.data)
 }
 
+export function upload(file, data) {
+  const name = file.url.match(/.*\/(.*)/)[1]
+  return new Promise((resolve, reject) => {
+    uni.uploadFile({
+      url: `${process.env.VUE_APP_API_URL}/system/file/uploadFile`,
+      filePath: file.url,
+      name: 'file',
+      header: {
+        token: uni.getStorageSync('token'),
+      },
+      formData: {
+        fileType: 0,
+        fname: name,
+        startPos: 0,
+        endPos: file.size,
+        noThumb: 0,
+        totalSize: file.size,
+        userId: uni.getStorageSync('userId'),
+        ...data,
+      },
+      success: (uploadFileRes) => {
+        resolve(JSON.parse(uploadFileRes.data))
+      },
+      fail: reject,
+    })
+  })
+}
 // 捕获promise错误
 wx.onUnhandledRejection(({ reason }) => {
   // 处理接口错误
