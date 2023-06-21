@@ -8,6 +8,7 @@ import 'windi.css'
 
 import vantMixin from '@/mixins/vant'
 import { promiseLoading } from '@/utils/helper'
+import { post } from '@/api'
 
 // vant组件
 import Toast from '@/wxcomponents/vant/toast/toast'
@@ -25,6 +26,7 @@ Vue.prototype.$toast = Toast
 Vue.prototype.$dialog = Dialog
 Vue.prototype.$loading = promiseLoading
 Vue.prototype.$log = console.log
+Vue.prototype.$post = post
 
 Vue.config.productionTip = false
 

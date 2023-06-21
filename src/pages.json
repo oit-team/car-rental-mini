@@ -1,18 +1,21 @@
 {
   "pages": [
     {
-      "path": "pages/order/car-rental-return/validate-car"
-    },
-    {
-      "path": "pages/order/car-rental/delivery"
-    },
-    {
       "path": "pages/index/index",
       "style": {
         "navigationBarTitleText": "司机列表",
         "enablePullDownRefresh": true,
         "onReachBottomDistance": 10
       }
+    },
+    {
+      "path": "pages/order/list"
+    },
+    {
+      "path": "pages/order/car-rental-return/validate-car"
+    },
+    {
+      "path": "pages/order/car-rental/delivery"
     },
     {
       "path": "pages/index/detail",
