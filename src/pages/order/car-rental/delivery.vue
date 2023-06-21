@@ -1,5 +1,8 @@
 <script>
 export default {
+  props: {
+    workCode: String,
+  },
   data: () => ({
     contract: {},
     driverAnnex: [],
@@ -37,11 +40,15 @@ export default {
     convertToUrls(files) {
       return files.filter(file => file.status === 'done').map(file => file.response.fileUrl).join(',')
     },
-    submit() {
+    async submit() {
       if (this.contract.status && this.contract.status !== 'done')
         return this.$toast('请等待合同上传完成')
 
-      const data = {
+      await this.$dialog.confirm({
+        message: '确认要提交吗？',
+      })
+
+      const params = {
         contractName: this.contract.name,
         contractUrl: this.contract?.response?.fileUrl,
         driverAnnex: this.convertToUrls(this.driverAnnex),
@@ -49,7 +56,32 @@ export default {
         vehicleSupplementary: Object.fromEntries(Object.entries(this.vehicleSupplementary).map(([key, value]) => [key, this.convertToUrls(value)])),
       }
 
-      console.log(data)
+      await this.$loading(
+        this.$post('/workFlow/workFlow/submit', {
+          flowCode: 'CAR_RENTAL',
+          workCode: this.workCode,
+          approvalStatus: 1,
+          params,
+        }),
+      )
+
+      uni.$emit('order:reload')
+      uni.navigateBack()
+    },
+    async reject() {
+      await this.$dialog.confirm({
+        message: '确认要拒绝吗？',
+      })
+      await this.$loading(
+        this.$post('/workFlow/workFlow/submit', {
+          flowCode: 'CAR_RENTAL',
+          workCode: this.workCode,
+          approvalStatus: 0,
+          params: {},
+        }),
+      )
+      uni.$emit('order:reload')
+      uni.navigateBack()
     },
   },
 }
@@ -107,8 +139,11 @@ export default {
         </div>
       </van-cell>
     </van-cell-group>
-    <div class="pt-3">
-      <van-button block type="primary" square @click="submit()">
+    <div class="pt-3 flex">
+      <van-button class="flex-1" block type="danger" square @click="reject()">
+        拒绝
+      </van-button>
+      <van-button class="flex-1" block type="primary" square @click="submit()">
         提交
       </van-button>
     </div>

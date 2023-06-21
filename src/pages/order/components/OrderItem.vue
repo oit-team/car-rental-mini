@@ -7,7 +7,7 @@ export default {
 </script>
 
 <template>
-  <div class="bg-white rounded text-sm">
+  <div class="bg-white rounded text-sm" @click="$emit('click')">
     <div class="flex justify-between p-2">
       <div>{{ item.workCode }}</div>
       <div>{{ item.statusName }}</div>

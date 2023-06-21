@@ -20,7 +20,7 @@ export default {
   props: {
     immediate: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     pullRefresh: {
       type: Boolean,
