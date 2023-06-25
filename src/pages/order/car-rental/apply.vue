@@ -18,6 +18,8 @@ export default {
     activityList: [],
     // 优惠
     preferential: {},
+    remarks: '',
+    annex: '',
 
     showschemePopup: false,
     showActivityPopup: false,
@@ -126,6 +128,8 @@ export default {
         activityId: this.activity.activityId,
         schemeId: this.scheme.id,
         vehicleId: this.vehicle.vehicleId,
+        remarks: this.remarks,
+        annex: this.annex,
       }
 
       await post('/workFlow/workFlow/workOrderApply', {
@@ -179,6 +183,21 @@ export default {
                   :value="vehicle[item.prop] || '暂无'"
                 />
               </template>
+            </van-cell-group>
+            <van-cell-group inset>
+              <van-field
+                label="备注"
+                type="textarea"
+                autosize
+                :value="remarks"
+                @input="remarks = $event.detail"
+              />
+              <van-cell
+                title="附件"
+                value-class="upload-cell-class"
+              >
+                <vc-upload @success="annex = $event.fileUrls" />
+              </van-cell>
             </van-cell-group>
           </div>
         </van-tab>
@@ -335,5 +354,13 @@ export default {
   color: #999;
   padding: 0 16px;
   margin-bottom: -0.5em;
+}
+</style>
+
+<style>
+.upload-cell-class {
+  flex: 0!important;
+  min-width: 265px;
+  margin-right: -8px;
 }
 </style>
