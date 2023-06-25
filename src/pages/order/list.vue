@@ -19,6 +19,9 @@ export default {
   created() {
     uni.$on('order:reload', this.reload)
   },
+  mounted() {
+    this.$refs.list.load()
+  },
   deactivated() {
     uni.$off('order:reload', this.reload)
   },

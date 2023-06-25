@@ -9,13 +9,22 @@
       }
     },
     {
-      "path": "pages/order/list"
+      "path": "pages/order/list",
+      "style": {
+        "navigationBarTitleText": "待处理工单"
+      }
     },
     {
-      "path": "pages/order/car-rental-return/validate-car"
+      "path": "pages/order/car-rental-return/validate-car",
+      "style": {
+        "navigationBarTitleText": "验车"
+      }
     },
     {
-      "path": "pages/order/car-rental/delivery"
+      "path": "pages/order/car-rental/delivery",
+      "style": {
+        "navigationBarTitleText": "出库"
+      }
     },
     {
       "path": "pages/index/detail",

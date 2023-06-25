@@ -70,6 +70,7 @@ export default {
       </view>
       <van-cell-group inset>
         <van-cell title="修改密码" icon="edit" is-link @click="toEdit" />
+        <van-cell title="待处理工单" icon="todo-list-o" is-link @click="uni.navigateTo({ url: '/pages/order/list' })" />
         <!--        <van-cell title="申请租车" is-link @click="uni.navigateTo({ url: '/pages/my/rental/rent' })"> -->
         <!--          <van-icon slot="icon" name="balance-o" size="18" class="mr-2" /> -->
         <!--        </van-cell> -->

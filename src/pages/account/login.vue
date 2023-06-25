@@ -77,7 +77,7 @@ export default {
         left-icon="contact"
         clearable
         maxlength="50"
-        @change="username = $event.detail"
+        @input="username = $event.detail"
       />
       <van-field
         :value="password"
@@ -86,7 +86,7 @@ export default {
         clearable
         maxlength="50"
         placeholder="密码"
-        @change="password = $event.detail"
+        @input="password = $event.detail"
       />
       <view class="w-full flex justify-between gap-1 pl-3 box-border items-center">
         <van-image
@@ -102,7 +102,7 @@ export default {
           center
           clearable
           placeholder="验证码"
-          @change="checkCode = $event.detail"
+          @input="checkCode = $event.detail"
         />
       </view>
       <view class="m-5" @click="login()">

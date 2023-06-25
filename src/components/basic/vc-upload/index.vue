@@ -64,9 +64,11 @@ export default {
             fileUrls: this.convertToUrls(this.innerFileList),
           })
         }
-        catch (err) {
+        catch (error) {
+          console.error(error)
           if (!this.innerFileList.includes(targetFile))
             return
+          targetFile.message = '上传失败'
           targetFile.status = Status.Failed
           this.$emit('error', {
             error,
@@ -108,6 +110,7 @@ export default {
     multiple
     :accept="accept"
     :preview-image="previewImage"
+    :size-type="['compressed']"
     @after-read="afterRead"
     @delete="deleteFile($event.detail.index)"
   >
