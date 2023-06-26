@@ -128,7 +128,12 @@ export default {
       })
 
       if (body.workFlowSteps) {
-        this.steps = body.workFlowSteps.map((e) => {
+        const arr = body.workFlowSteps.filter(item => item.clickEnable === 1)
+        arr.forEach((item, index) => {
+          if (item.taskCode === body.taskCode)
+            arr.splice(index, 1)
+        })
+        this.steps = arr.map((e) => {
           return {
             text: `[${e.name}] 操作人：${e.handleUser}`,
             desc: e.handleTime,

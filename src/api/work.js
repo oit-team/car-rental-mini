@@ -1,14 +1,14 @@
 import { post } from '@/api/index'
 
 /**
- * T3租赁订单详情
+ * 工单列表
  */
 export function getWorkOrderList(params) {
-  return post('/workFlow/workFlow/getWorkOrderList', params)
+  return post('/workFlow/workFlow/getAppWorkOrderList', params)
 }
 
 /**
- * T3租赁订单详情
+ * 工单详情
  */
 export function getWorkFlowSteps(params) {
   return post('/workFlow/workFlow/getWorkFlowSteps', params)
@@ -21,7 +21,7 @@ export function workOrderApply(params) {
   return post('/workFlow/workFlow/workOrderApply', params)
 }
 
-/* T3租赁订单详情
+/* 换车申请
  */
 export function addVehicleChangeRecords(params) {
   return post('/order/leaseOrder/addVehicleChangeRecords', params)
