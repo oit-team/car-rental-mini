@@ -123,7 +123,7 @@ export default {
 
 <template>
   <page classes="bg-neutral-100 p-2 box-border text-sm">
-    <view class="text-sm text-[#777]">
+    <view class="pb-2 text-sm text-[#777]">
       车辆信息
     </view>
     <van-cell-group :border="false">
@@ -135,7 +135,7 @@ export default {
       />
     </van-cell-group>
 
-    <view class=" text-sm text-[#777]">
+    <view class="py-2 text-sm text-[#777]">
       退车信息
     </view>
     <view>

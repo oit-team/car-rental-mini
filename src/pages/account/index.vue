@@ -31,6 +31,7 @@ export default {
         message: '确认退出登录',
       }).then(async () => {
         await userLogout({})
+        uni.clearStorage()
         uni.reLaunch({
           url: '/pages/account/login',
         })

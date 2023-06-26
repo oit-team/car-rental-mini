@@ -1,5 +1,5 @@
 {
-  "appid": "wx2329580b8bb9d021",
+  "appid": "wx2bd6d26632db4171",
   "compileType": "miniprogram",
   "libVersion": "2.32.0",
   "packOptions": {
@@ -25,5 +25,6 @@
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
-  }
+  },
+  "projectname": "car-rental-mini3"
 }

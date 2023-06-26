@@ -19,7 +19,7 @@ export default {
       },
       driverList: [],
       canReLoad: false,
-      showEmpty: false,
+      showEmpty: true,
       showBackTop: false,
     }
   },
@@ -36,7 +36,7 @@ export default {
     await this.$store.state.userLoginPromise
 
     this.formData.pageNum = 1
-    this.logged && await this.getData()
+    this.getData()
   },
   async onPullDownRefresh() {
     this.formData.pageNum = 1
