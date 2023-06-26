@@ -18,21 +18,9 @@ export default {
       chassis: [],
     },
   }),
-  computed: {
-    hasContract() {
-      return Object.keys(this.contract).length
-    },
-  },
   methods: {
     setContract({ fileList }) {
       this.contract = fileList[0] ?? {}
-    },
-    clearContract() {
-      this.$refs.contract.deleteFile(0)
-    },
-    contractUploadError(err) {
-      this.$toast(err.msg)
-      this.clearContract()
     },
     setDriverAnnex({ fileList }) {
       this.driverAnnex = fileList
@@ -117,26 +105,11 @@ export default {
       </van-cell>
     </van-cell-group>
     <van-cell-group title="租赁合同">
-      <van-cell title="文件" value-class="upload-cell-class">
-        <vc-upload
-          v-show="!hasContract"
-          id="contract"
-          ref="contract"
-          accept="file"
-          :preview-image="false"
-          @change="setContract"
-          @error="contractUploadError"
-        >
-          <van-button icon="orders-o">
-            选择文件
-          </van-button>
-        </vc-upload>
-        <div v-show="hasContract" @click="clearContract()">
-          {{ contract.name }}{{ !contract.status === 'done' ? '(上传中)' : '' }}
-          <div class="text-sm">
-            点击删除
-          </div>
-        </div>
+      <van-cell
+        title="附件"
+        value-class="upload-cell-class"
+      >
+        <vc-upload :limit="1" @success="setContract" />
       </van-cell>
     </van-cell-group>
     <div class="pt-3 flex">

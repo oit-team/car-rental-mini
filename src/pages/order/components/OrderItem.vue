@@ -10,7 +10,9 @@ export default {
   <div class="bg-white rounded text-sm" @click="$emit('click')">
     <div class="flex justify-between p-2">
       <div>{{ item.workCode }}</div>
-      <div>{{ item.statusName }}</div>
+      <van-tag type="success">
+        {{ item.statusName }}
+      </van-tag>
     </div>
     <van-divider custom-style="margin: 0;" />
     <div class="p-2 grid grid-cols-2">
